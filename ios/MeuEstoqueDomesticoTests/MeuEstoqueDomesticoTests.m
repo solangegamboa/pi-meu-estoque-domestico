@@ -7,11 +7,11 @@
 #define TIMEOUT_SECONDS 600
 #define TEXT_TO_LOOK_FOR @"Welcome to React"
 
-@interface meu-estoque-domesticoTests : XCTestCase
+@interface MeuEstoqueDomesticoTests : XCTestCase
 
 @end
 
-@implementation meu-estoque-domesticoTests
+@implementation MeuEstoqueDomesticoTests
 
 - (BOOL)findSubviewInView:(UIView *)view matching:(BOOL (^)(UIView *view))test
 {
