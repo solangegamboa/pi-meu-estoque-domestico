@@ -73,9 +73,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.meuestoquedomestico"
+    namespace "com.meu-estoque-domestico"
     defaultConfig {
-        applicationId "com.meuestoquedomestico"
+        applicationId "com.meu-estoque-domestico"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "MeuEstoqueDomestico.app"
-               BlueprintName = "MeuEstoqueDomestico"
-               ReferencedContainer = "container:MeuEstoqueDomestico.xcodeproj">
+               BuildableName = "meu-estoque-domestico.app"
+               BlueprintName = "meu-estoque-domestico"
+               ReferencedContainer = "container:meu-estoque-domestico.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "MeuEstoqueDomesticoTests.xctest"
-               BlueprintName = "MeuEstoqueDomesticoTests"
-               ReferencedContainer = "container:MeuEstoqueDomestico.xcodeproj">
+               BuildableName = "meu-estoque-domesticoTests.xctest"
+               BlueprintName = "meu-estoque-domesticoTests"
+               ReferencedContainer = "container:meu-estoque-domestico.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "MeuEstoqueDomestico.app"
-            BlueprintName = "MeuEstoqueDomestico"
-            ReferencedContainer = "container:MeuEstoqueDomestico.xcodeproj">
+            BuildableName = "meu-estoque-domestico.app"
+            BlueprintName = "meu-estoque-domestico"
+            ReferencedContainer = "container:meu-estoque-domestico.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "MeuEstoqueDomestico.app"
-            BlueprintName = "MeuEstoqueDomestico"
-            ReferencedContainer = "container:MeuEstoqueDomestico.xcodeproj">
+            BuildableName = "meu-estoque-domestico.app"
+            BlueprintName = "meu-estoque-domestico"
+            ReferencedContainer = "container:meu-estoque-domestico.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

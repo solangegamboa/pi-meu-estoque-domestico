@@ -1,4 +1,4 @@
-package com.meuestoquedomestico;
+package com.meu-estoque-domestico;
 
 import android.app.Application;
 import com.facebook.react.PackageList;
