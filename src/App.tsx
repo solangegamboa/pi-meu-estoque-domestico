@@ -26,6 +26,30 @@ const HomeScreen = (props: any) => {
   return (
     <View style={styles.root}>
       <Text>Estoque</Text>
+
+      <Button
+        title="Produto 1"
+        color="#710ce3"
+        onPress={() =>
+          Navigation.push(props.componentId, {
+            component: {
+              name: 'DetalhesProduto',
+            },
+          })
+        }
+      />
+
+      <Button
+        title="Produto 2"
+        color="#710ce3"
+        onPress={() =>
+          Navigation.push(props.componentId, {
+            component: {
+              name: 'DetalhesProduto',
+            },
+          })
+        }
+      />
     </View>
   );
 };
@@ -58,9 +82,28 @@ SettingsScreen.options = {
   },
 };
 
+const ProductDetailScreen = () => {
+  return (
+    <View style={styles.root}>
+      <Text>Detalhe do Produto</Text>
+    </View>
+  );
+};
+ProductDetailScreen.options = {
+  topBar: {
+    title: {
+      text: 'Detalhe do Produto',
+    },
+  },
+  bottomTab: {
+    text: 'Detalhe do Produto',
+  },
+};
+
 Navigation.registerComponent('Login', () => LoginScreen);
 Navigation.registerComponent('Estoque', () => HomeScreen);
 Navigation.registerComponent('Favoritos', () => SettingsScreen);
+Navigation.registerComponent('DetalhesProduto', () => ProductDetailScreen);
 
 const mainRoot = {
   root: {
