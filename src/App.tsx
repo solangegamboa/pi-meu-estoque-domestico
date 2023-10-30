@@ -1,28 +1,37 @@
 import {View, Button, Text, StyleSheet} from 'react-native';
 import {Navigation} from 'react-native-navigation';
 
-const LoginScreen = () => {
+const LoginScreen = (props: any) => {
   return (
     <View style={styles.root}>
       <Button
-        title="Login ou Cadastro"
+        title="Login"
         color="#710ce3"
         onPress={() => Navigation.setRoot(mainRoot)}
       />
     </View>
   );
 };
-LoginScreen.options = {
+
+const CadastroScreen = () => {
+  return (
+    <View style={styles.root}>
+      <Text>Formulário de cadastro</Text>
+    </View>
+  );
+};
+
+CadastroScreen.options = {
   topBar: {
     title: {
-      text: 'Login',
+      text: 'Cadastro',
     },
   },
   bottomTab: {
-    text: 'Login',
+    text: 'Cadastro',
   },
 };
-const HomeScreen = (props: any) => {
+const EstoqueScreen = (props: any) => {
   return (
     <View style={styles.root}>
       <Text>Estoque</Text>
@@ -38,7 +47,6 @@ const HomeScreen = (props: any) => {
           })
         }
       />
-
       <Button
         title="Produto 2"
         color="#710ce3"
@@ -53,7 +61,7 @@ const HomeScreen = (props: any) => {
     </View>
   );
 };
-HomeScreen.options = {
+EstoqueScreen.options = {
   topBar: {
     title: {
       text: 'Home',
@@ -64,14 +72,36 @@ HomeScreen.options = {
   },
 };
 
-const SettingsScreen = () => {
+const FavoritosScreen = (props: any) => {
   return (
     <View style={styles.root}>
       <Text>Favoritos</Text>
+      <Button
+        title="Produto 1"
+        color="#710ce3"
+        onPress={() =>
+          Navigation.push(props.componentId, {
+            component: {
+              name: 'DetalhesProduto',
+            },
+          })
+        }
+      />
+      <Button
+        title="Produto 2"
+        color="#710ce3"
+        onPress={() =>
+          Navigation.push(props.componentId, {
+            component: {
+              name: 'DetalhesProduto',
+            },
+          })
+        }
+      />
     </View>
   );
 };
-SettingsScreen.options = {
+FavoritosScreen.options = {
   topBar: {
     title: {
       text: 'Favoritos',
@@ -82,14 +112,14 @@ SettingsScreen.options = {
   },
 };
 
-const ProductDetailScreen = () => {
+const ProdutoDetalheScreen = () => {
   return (
     <View style={styles.root}>
       <Text>Detalhe do Produto</Text>
     </View>
   );
 };
-ProductDetailScreen.options = {
+ProdutoDetalheScreen.options = {
   topBar: {
     title: {
       text: 'Detalhe do Produto',
@@ -101,9 +131,10 @@ ProductDetailScreen.options = {
 };
 
 Navigation.registerComponent('Login', () => LoginScreen);
-Navigation.registerComponent('Estoque', () => HomeScreen);
-Navigation.registerComponent('Favoritos', () => SettingsScreen);
-Navigation.registerComponent('DetalhesProduto', () => ProductDetailScreen);
+Navigation.registerComponent('Estoque', () => EstoqueScreen);
+Navigation.registerComponent('Favoritos', () => FavoritosScreen);
+Navigation.registerComponent('DetalhesProduto', () => ProdutoDetalheScreen);
+Navigation.registerComponent('Cadastro', () => CadastroScreen);
 
 const mainRoot = {
   root: {
@@ -114,7 +145,7 @@ const mainRoot = {
             children: [
               {
                 component: {
-                  name: 'Login',
+                  name: 'Cadastro',
                 },
               },
             ],
