@@ -1,5 +1,9 @@
 import {View, Button, Text, StyleSheet} from 'react-native';
 import {Navigation} from 'react-native-navigation';
+import {CadastroScreen} from './CadastroScreen';
+import {EstoqueScreen} from './EstoqueScreen';
+import {ProdutoDetalheScreen} from './ProdutoDetalhesScreen';
+import { FavoritosScreen } from './FavoritosScreen';
 
 const LoginScreen = (props: any) => {
   return (
@@ -11,123 +15,6 @@ const LoginScreen = (props: any) => {
       />
     </View>
   );
-};
-
-const CadastroScreen = () => {
-  return (
-    <View style={styles.root}>
-      <Text>Formulário de cadastro</Text>
-    </View>
-  );
-};
-
-CadastroScreen.options = {
-  topBar: {
-    title: {
-      text: 'Cadastro',
-    },
-  },
-  bottomTab: {
-    text: 'Cadastro',
-  },
-};
-const EstoqueScreen = (props: any) => {
-  return (
-    <View style={styles.root}>
-      <Text>Estoque</Text>
-
-      <Button
-        title="Produto 1"
-        color="#710ce3"
-        onPress={() =>
-          Navigation.push(props.componentId, {
-            component: {
-              name: 'DetalhesProduto',
-            },
-          })
-        }
-      />
-      <Button
-        title="Produto 2"
-        color="#710ce3"
-        onPress={() =>
-          Navigation.push(props.componentId, {
-            component: {
-              name: 'DetalhesProduto',
-            },
-          })
-        }
-      />
-    </View>
-  );
-};
-EstoqueScreen.options = {
-  topBar: {
-    title: {
-      text: 'Home',
-    },
-  },
-  bottomTab: {
-    text: 'Home',
-  },
-};
-
-const FavoritosScreen = (props: any) => {
-  return (
-    <View style={styles.root}>
-      <Text>Favoritos</Text>
-      <Button
-        title="Produto 1"
-        color="#710ce3"
-        onPress={() =>
-          Navigation.push(props.componentId, {
-            component: {
-              name: 'DetalhesProduto',
-            },
-          })
-        }
-      />
-      <Button
-        title="Produto 2"
-        color="#710ce3"
-        onPress={() =>
-          Navigation.push(props.componentId, {
-            component: {
-              name: 'DetalhesProduto',
-            },
-          })
-        }
-      />
-    </View>
-  );
-};
-FavoritosScreen.options = {
-  topBar: {
-    title: {
-      text: 'Favoritos',
-    },
-  },
-  bottomTab: {
-    text: 'Favoritos',
-  },
-};
-
-const ProdutoDetalheScreen = () => {
-  return (
-    <View style={styles.root}>
-      <Text>Detalhe do Produto</Text>
-    </View>
-  );
-};
-ProdutoDetalheScreen.options = {
-  topBar: {
-    title: {
-      text: 'Detalhe do Produto',
-    },
-  },
-  bottomTab: {
-    text: 'Detalhe do Produto',
-  },
 };
 
 Navigation.registerComponent('Login', () => LoginScreen);
@@ -209,7 +96,7 @@ Navigation.events().registerAppLaunchedListener(async () => {
   Navigation.setRoot(loginRoot);
 });
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   root: {
     flex: 1,
     alignItems: 'center',
