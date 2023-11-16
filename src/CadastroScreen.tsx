@@ -1,7 +1,7 @@
-import { Text, TextInput, StyleSheet, ImageBackground, Image, Button, ScrollView, PermissionsAndroid, Modal, View} from 'react-native';
+import { Text, TextInput, StyleSheet, ImageBackground, Image, Button, ScrollView, View, TouchableWithoutFeedback} from 'react-native';
 import * as ImagePicker from 'react-native-image-picker';
-import {styles} from './App';
 import {useState} from 'react';
+import iconCamera from '../Assets/img/iconCamera.png'
 
 export const CadastroScreen = () => {
   const [galleryPhoto, setGalleryPhoto] = useState('');
@@ -54,9 +54,20 @@ export const CadastroScreen = () => {
 
           <View style={componentStyles.container}>
             <Text style={componentStyles.text} >Adicionar foto:</Text>
-            <Image style={componentStyles.image} source={{uri: galleryPhoto}}/>
+            <TouchableWithoutFeedback style={componentStyles.button} onPress={openGallery}>
+              {galleryPhoto ? (
+                <Image style={componentStyles.image} source={{ uri: galleryPhoto }} />
+              ) : (
+                <View style={componentStyles.cameraIconContainer}>
+                  <Image style={componentStyles.cameraIcon} source={iconCamera} />
+                </View>
+              )}
+            </TouchableWithoutFeedback>
           </View>
-          <Button color='#6D3E84' title='Open Gallery' onPress={openGallery}/>
+          <Button 
+            color='#6D3E84' 
+            title='Cadastrar Item' 
+          />
         </View>
       </ImageBackground>
     </ScrollView>
@@ -98,12 +109,36 @@ const componentStyles = StyleSheet.create({
   },
   image: {
     width: 150,
-    height: 150,    
+    height: 150,
+    borderRadius: 8,
+    borderColor: '#8A7395',
+    borderWidth: 1,
+    borderStyle: 'dashed',
   },
   container: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: 15,
-  }
+    marginBottom: 15,
+  },
+  button: {
+    width: 150,
+    height: 150,
+  },
+  cameraIconContainer: {
+    width: 150,
+    height: 150,
+    backgroundColor: '#fff',
+    borderRadius: 8,
+    borderColor: '#8A7395',
+    borderWidth: 1,
+    borderStyle: 'dashed',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  cameraIcon: {
+    width: 25,
+    height: 25,
+  },
 });
