@@ -1,9 +1,9 @@
-import {View, Button, Text, StyleSheet} from 'react-native';
+import {View, Button, StyleSheet} from 'react-native';
 import {Navigation} from 'react-native-navigation';
 import {CadastroScreen} from './CadastroScreen';
-import {EstoqueScreen} from './EstoqueScreen';
 import {ProdutoDetalheScreen} from './ProdutoDetalhesScreen';
-import { FavoritosScreen } from './FavoritosScreen';
+import {FavoritosScreen} from './FavoritosScreen';
+import EstoqueScreen from './EstoqueScreen';
 
 const LoginScreen = (props: any) => {
   return (
