@@ -4,6 +4,8 @@ import {CadastroScreen} from './CadastroScreen';
 import {ProdutoDetalheScreen} from './ProdutoDetalhesScreen';
 import {FavoritosScreen} from './FavoritosScreen';
 import EstoqueScreen from './EstoqueScreen';
+import {Provider} from 'react-redux';
+import {store} from './store';
 
 const LoginScreen = (props: any) => {
   return (
@@ -17,11 +19,56 @@ const LoginScreen = (props: any) => {
   );
 };
 
-Navigation.registerComponent('Login', () => LoginScreen);
-Navigation.registerComponent('Estoque', () => EstoqueScreen);
-Navigation.registerComponent('Favoritos', () => FavoritosScreen);
-Navigation.registerComponent('DetalhesProduto', () => ProdutoDetalheScreen);
-Navigation.registerComponent('Cadastro', () => CadastroScreen);
+Navigation.registerComponent(
+  'Login',
+  () => props =>
+    (
+      <Provider store={store}>
+        <LoginScreen {...props} />
+      </Provider>
+    ),
+  () => LoginScreen,
+);
+Navigation.registerComponent(
+  'Estoque',
+  () => props =>
+    (
+      <Provider store={store}>
+        <EstoqueScreen {...props} />
+      </Provider>
+    ),
+  () => EstoqueScreen,
+);
+Navigation.registerComponent(
+  'Favoritos',
+  () => props =>
+    (
+      <Provider store={store}>
+        <FavoritosScreen {...props} />
+      </Provider>
+    ),
+  () => FavoritosScreen,
+);
+Navigation.registerComponent(
+  'DetalhesProduto',
+  () => props =>
+    (
+      <Provider store={store}>
+        <ProdutoDetalheScreen {...props} />
+      </Provider>
+    ),
+  () => ProdutoDetalheScreen,
+);
+Navigation.registerComponent(
+  'Cadastro',
+  () => props =>
+    (
+      <Provider store={store}>
+        <CadastroScreen {...props} />
+      </Provider>
+    ),
+  () => CadastroScreen,
+);
 
 const mainRoot = {
   root: {
