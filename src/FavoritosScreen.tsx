@@ -7,12 +7,11 @@ import {
   ProductType,
   incrementQty,
   decrementQty,
-  selectFavoritosList,
   toogleFavorito,
 } from './features/productSlice';
 
 export const FavoritosScreen = (props: any) => {
-  const listaProdutos = useSelector(selectFavoritosList);
+  const listaProdutos = useSelector(selectProductList);
 
   const dispatch = useDispatch();
 
@@ -35,8 +34,7 @@ export const FavoritosScreen = (props: any) => {
   };
 
   useEffect(() => {
-    setProducts(listaProdutos);
-    console.log('listaProdutos.products', listaProdutos);
+    setProducts(listaProdutos.products.filter(p => p.favorito));
   }, [listaProdutos]);
 
   const renderProduto = ({item}: {item: ProductType}) => (

@@ -56,8 +56,6 @@ export const {addProduct, incrementQty, decrementQty, toogleFavorito} =
 export default productSlice.reducer;
 
 export const selectProductList = (state: RootState) => state.productSlice;
-export const selectFavoritosList = (state: RootState) =>
-  state.productSlice.products.filter(p => p.favorito);
 
 export const selectNextId = (state: RootState) =>
   state.productSlice.products.length + 1;
