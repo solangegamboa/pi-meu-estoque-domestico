@@ -1,12 +1,12 @@
-import {PayloadAction, createSlice} from '@reduxjs/toolkit';
-import {RootState} from '../store';
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { RootState } from "../store";
 
 type ProductState = {
   products: ProductType[];
 };
 
 const initialState: ProductState = {
-  products: [],
+  products: []
 };
 
 export interface ProductType {
@@ -14,7 +14,7 @@ export interface ProductType {
   nome: string;
   categoria: string;
   marca: string;
-  quantidade: number;
+  quantidade: string;
   data_compra: string;
   data_validade: string;
   foto: string;
@@ -22,7 +22,7 @@ export interface ProductType {
 }
 
 const productSlice = createSlice({
-  name: 'productSlice',
+  name: "productSlice",
   initialState,
   reducers: {
     addProduct: (state, action: PayloadAction<ProductType>) => {
@@ -31,26 +31,26 @@ const productSlice = createSlice({
     incrementQty: (state, action: PayloadAction<number>) => {
       state.products = state.products.map(prod =>
         prod.id === action.payload
-          ? {...prod, quantidade: prod.quantidade + 1}
-          : prod,
+          ? { ...prod, quantidade: (parseInt(prod.quantidade) + 1).toString() }
+          : prod
       );
     },
     decrementQty: (state, action: PayloadAction<number>) => {
       state.products = state.products.map(prod =>
-        prod.id === action.payload && prod.quantidade > 0
-          ? {...prod, quantidade: prod.quantidade - 1}
-          : prod,
+        prod.id === action.payload && (parseInt(prod.quantidade) > 0).toString()
+          ? { ...prod, quantidade: (parseInt(prod.quantidade) - 1).toString() }
+          : prod
       );
     },
     toogleFavorito: (state, action: PayloadAction<number>) => {
       state.products = state.products.map(prod =>
-        prod.id === action.payload ? {...prod, favorito: !prod.favorito} : prod,
+        prod.id === action.payload ? { ...prod, favorito: !prod.favorito } : prod
       );
-    },
-  },
+    }
+  }
 });
 
-export const {addProduct, incrementQty, decrementQty, toogleFavorito} =
+export const { addProduct, incrementQty, decrementQty, toogleFavorito } =
   productSlice.actions;
 
 export default productSlice.reducer;

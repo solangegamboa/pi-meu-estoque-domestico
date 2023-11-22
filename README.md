@@ -56,4 +56,8 @@ yarn start
 ```
 
 Com tudo correto, o projeto será aberto no seu dispositivo.
-Veja o video abaixo com uma demonstração
+
+
+### Figma inicial do projeto
+
+### Video do aplicativo em funcionamento

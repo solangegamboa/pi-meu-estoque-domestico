@@ -7,26 +7,29 @@ import {
   Button,
   ScrollView,
   View,
-  TouchableWithoutFeedback,
-} from 'react-native';
-import * as ImagePicker from 'react-native-image-picker';
-import {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {ProductType, addProduct, selectNextId} from './features/productSlice';
-const iconCamera = require('../Assets/img/iconCamera.png');
+  TouchableWithoutFeedback
+} from "react-native";
+import ImagePicker from "react-native-image-picker";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { ProductType, addProduct, selectNextId } from "./features/productSlice";
+import MaskInput, { Masks } from "react-native-mask-input";
+
+// @ts-ignore
+import iconCamera from "../Assets/img/iconCamera.png";
 
 export const CadastroScreen = () => {
-  const [galleryPhoto, setGalleryPhoto] = useState('');
+  const [galleryPhoto, setGalleryPhoto] = useState("");
   const [form, setForm] = useState<ProductType>({
     id: 0,
-    nome: '',
-    categoria: '',
-    marca: '',
-    quantidade: 0,
-    data_compra: '',
-    data_validade: '',
-    foto: '',
-    favorito: false,
+    nome: "",
+    categoria: "",
+    marca: "",
+    quantidade: "0",
+    data_compra: "",
+    data_validade: "",
+    foto: "",
+    favorito: false
   });
 
   const nextId = useSelector(selectNextId);
@@ -35,31 +38,29 @@ export const CadastroScreen = () => {
 
   const addNewProduct = () => {
     if (form.nome !== undefined) {
-      console.log('form', form);
       dispatch(addProduct(form));
     }
   };
 
   useEffect(() => {
-    setForm({...form, id: nextId});
+    setForm({ ...form, id: nextId });
   }, [nextId]);
 
   const openGallery = async () => {
     const result = await ImagePicker.launchImageLibrary({
-      allowsEditing: true,
-      base64: true,
-      quality: 1,
+      mediaType: "photo",
+      quality: 1
     });
 
-    if (!result.canceled) {
-      setGalleryPhoto(result.assets[0].uri);
+    if (result!== undefined && !result.didCancel) {
+      setGalleryPhoto(result?.assets[0]?.uri);
     }
   };
 
   return (
     <ScrollView>
       <ImageBackground
-        source={require('../Assets/img/cadastroBackground.png')}
+        source={require("../Assets/img/cadastroBackground.png")}
         style={componentStyles.backgroundImage}
         key="cadastro-screen">
         <View style={componentStyles.root} key="cadastro-screen-view">
@@ -68,44 +69,46 @@ export const CadastroScreen = () => {
           <TextInput
             style={componentStyles.input}
             value={form.nome}
-            onChangeText={text => setForm({...form, nome: text})}
+            onChangeText={text => setForm({ ...form, nome: text })}
           />
 
           <Text style={componentStyles.text}>Categoria:</Text>
           <TextInput
             style={componentStyles.input}
             value={form.categoria}
-            onChangeText={text => setForm({...form, categoria: text})}
+            onChangeText={text => setForm({ ...form, categoria: text })}
           />
 
           <Text style={componentStyles.text}>Marca:</Text>
           <TextInput
             style={componentStyles.input}
             value={form.marca}
-            onChangeText={text => setForm({...form, marca: text})}
+            onChangeText={text => setForm({ ...form, marca: text })}
           />
 
           <Text style={componentStyles.text}>Quantidade:</Text>
           <TextInput
             style={componentStyles.input}
-            value={form.quantidade.toString()}
+            value={form.quantidade}
             onChangeText={text =>
-              setForm({...form, quantidade: parseInt(text)})
+              setForm({ ...form, quantidade: text })
             }
           />
 
           <Text style={componentStyles.text}>Data de compra:</Text>
-          <TextInput
+          <MaskInput
             style={componentStyles.input}
             value={form.data_compra}
-            onChangeText={text => setForm({...form, data_compra: text})}
+            mask={Masks.DATE_DDMMYYYY}
+            onChangeText={text => setForm({ ...form, data_compra: text })}
           />
 
           <Text style={componentStyles.text}>Validade:</Text>
-          <TextInput
+          <MaskInput
             style={componentStyles.input}
             value={form.data_validade}
-            onChangeText={text => setForm({...form, data_validade: text})}
+            mask={Masks.DATE_DDMMYYYY}
+            onChangeText={text => setForm({ ...form, data_validade: text })}
           />
 
           <View style={componentStyles.container}>
@@ -116,7 +119,7 @@ export const CadastroScreen = () => {
               {galleryPhoto ? (
                 <Image
                   style={componentStyles.image}
-                  source={{uri: galleryPhoto}}
+                  source={{ uri: galleryPhoto }}
                 />
               ) : (
                 <View style={componentStyles.cameraIconContainer}>
@@ -142,68 +145,68 @@ export const CadastroScreen = () => {
 CadastroScreen.options = {
   topBar: {
     title: {
-      text: 'Cadastro do Produto',
-    },
+      text: "Cadastro do Produto"
+    }
   },
   bottomTab: {
-    text: 'Cadastro',
-  },
+    text: "Cadastro"
+  }
 };
 
 const componentStyles = StyleSheet.create({
   root: {
     flex: 1,
-    margin: 20,
+    margin: 20
   },
   backgroundImage: {
-    resizeMode: 'cover',
-    width: '100%',
+    resizeMode: "cover",
+    width: "100%"
   },
   text: {
-    color: '#000',
+    color: "#000",
     marginBottom: 12,
-    marginTop: 12,
+    marginTop: 12
   },
   input: {
     height: 30,
     borderWidth: 1,
-    borderColor: '#8A7395',
+    borderColor: "#8A7395",
     borderRadius: 14,
-    backgroundColor: '#fff',
-    padding: 8,
+    backgroundColor: "#fff",
+    padding: 8
   },
   image: {
     width: 150,
     height: 150,
     borderRadius: 8,
-    borderColor: '#8A7395',
+    borderColor: "#8A7395",
     borderWidth: 1,
-    borderStyle: 'dashed',
+    borderStyle: "dashed"
   },
   container: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
     padding: 15,
-    marginBottom: 15,
+    marginBottom: 15
   },
   button: {
     width: 150,
-    height: 150,
+    height: 150
   },
   cameraIconContainer: {
     width: 150,
     height: 150,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderRadius: 8,
-    borderColor: '#8A7395',
+    borderColor: "#8A7395",
     borderWidth: 1,
-    borderStyle: 'dashed',
-    justifyContent: 'center',
-    alignItems: 'center',
+    borderStyle: "dashed",
+    justifyContent: "center",
+    alignItems: "center"
   },
   cameraIcon: {
     width: 25,
-    height: 25,
-  },
+    height: 25
+  }
 });
