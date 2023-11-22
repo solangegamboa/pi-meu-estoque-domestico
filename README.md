@@ -59,5 +59,6 @@ Com tudo correto, o projeto será aberto no seu dispositivo.
 
 
 ### Figma inicial do projeto
-
+![Figma](midias_pi/figma.jpg)
 ### Video do aplicativo em funcionamento
+[Video](midias_pi/PI_demo.mp4)
