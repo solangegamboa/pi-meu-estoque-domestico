@@ -42,7 +42,7 @@ export const CadastroScreen = (props: any) => {
         Alert.alert("Produto cadastrado com sucesso!", "Escolha a próxima ação", [
           {
             text: "Cadastrar novo produto",
-            onPress: () => console.log('fechou')
+            onPress: () => console.log('novo produto')
           },
           {
             text: "Ir para o estoque",

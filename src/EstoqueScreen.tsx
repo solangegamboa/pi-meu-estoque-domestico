@@ -40,7 +40,6 @@ const EstoqueScreen = (props: any) => {
 
   useEffect(() => {
     setProducts(listaProdutos.products);
-    console.log('listaProdutos.products', listaProdutos.products);
   }, [listaProdutos]);
 
   const renderProduto = ({item}: {item: ProductType}) => (

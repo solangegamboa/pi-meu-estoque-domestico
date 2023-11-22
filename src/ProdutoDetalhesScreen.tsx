@@ -6,7 +6,6 @@ import { decrementQty, incrementQty } from "./features/productSlice";
 import { useState } from "react";
 
 export const ProdutoDetalheScreen = (props: any) => {
-  console.log(props);
   const dispatch = useDispatch();
   const [qty, setQty] = useState<string>(props?.product?.quantidade);
 
