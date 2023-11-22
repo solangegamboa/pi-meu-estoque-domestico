@@ -46,11 +46,14 @@ const productSlice = createSlice({
       state.products = state.products.map(prod =>
         prod.id === action.payload ? { ...prod, favorito: !prod.favorito } : prod
       );
+    },
+    removeProduct: (state, action: PayloadAction<number>) => {
+      state.products = state.products.filter(prod => prod.id !== action.payload);
     }
   }
 });
 
-export const { addProduct, incrementQty, decrementQty, toogleFavorito } =
+export const { addProduct, incrementQty, decrementQty, toogleFavorito, removeProduct } =
   productSlice.actions;
 
 export default productSlice.reducer;

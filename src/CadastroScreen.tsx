@@ -7,9 +7,8 @@ import {
   Button,
   ScrollView,
   View,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback, Alert
 } from "react-native";
-import ImagePicker from "react-native-image-picker";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ProductType, addProduct, selectNextId } from "./features/productSlice";
@@ -17,8 +16,9 @@ import MaskInput, { Masks } from "react-native-mask-input";
 
 // @ts-ignore
 import iconCamera from "../Assets/img/iconCamera.png";
+import { Navigation } from "react-native-navigation";
 
-export const CadastroScreen = () => {
+export const CadastroScreen = (props: any) => {
   const [galleryPhoto, setGalleryPhoto] = useState("");
   const [form, setForm] = useState<ProductType>({
     id: 0,
@@ -37,25 +37,30 @@ export const CadastroScreen = () => {
   const dispatch = useDispatch();
 
   const addNewProduct = () => {
-    if (form.nome !== undefined) {
-      dispatch(addProduct(form));
+      if (form.nome !== undefined) {
+        dispatch(addProduct(form));
+        Alert.alert("Produto cadastrado com sucesso!", "Escolha a próxima ação", [
+          {
+            text: "Cadastrar novo produto",
+            onPress: () => console.log('fechou')
+          },
+          {
+            text: "Ir para o estoque",
+            onPress: () => Navigation.push(props.componentId, {
+              component: {
+                name: "Estoque"
+              }
+            })
+          }
+        ], { cancelable: false });
+      }
     }
-  };
+  ;
 
   useEffect(() => {
     setForm({ ...form, id: nextId });
   }, [nextId]);
 
-  const openGallery = async () => {
-    const result = await ImagePicker.launchImageLibrary({
-      mediaType: "photo",
-      quality: 1
-    });
-
-    if (result!== undefined && !result.didCancel) {
-      setGalleryPhoto(result?.assets[0]?.uri);
-    }
-  };
 
   return (
     <ScrollView>
@@ -111,26 +116,26 @@ export const CadastroScreen = () => {
             onChangeText={text => setForm({ ...form, data_validade: text })}
           />
 
-          <View style={componentStyles.container}>
-            <Text style={componentStyles.text}>Adicionar foto:</Text>
-            <TouchableWithoutFeedback
-              style={componentStyles.button}
-              onPress={openGallery}>
-              {galleryPhoto ? (
-                <Image
-                  style={componentStyles.image}
-                  source={{ uri: galleryPhoto }}
-                />
-              ) : (
-                <View style={componentStyles.cameraIconContainer}>
-                  <Image
-                    style={componentStyles.cameraIcon}
-                    source={iconCamera}
-                  />
-                </View>
-              )}
-            </TouchableWithoutFeedback>
-          </View>
+          {/*<View style={componentStyles.container}>*/}
+          {/*  <Text style={componentStyles.text}>Adicionar foto:</Text>*/}
+          {/*  <TouchableWithoutFeedback*/}
+          {/*    style={componentStyles.button}*/}
+          {/*    onPress={openGallery}>*/}
+          {/*    {galleryPhoto ? (*/}
+          {/*      <Image*/}
+          {/*        style={componentStyles.image}*/}
+          {/*        source={{ uri: galleryPhoto }}*/}
+          {/*      />*/}
+          {/*    ) : (*/}
+          {/*      <View style={componentStyles.cameraIconContainer}>*/}
+          {/*        <Image*/}
+          {/*          style={componentStyles.cameraIcon}*/}
+          {/*          source={iconCamera}*/}
+          {/*        />*/}
+          {/*      </View>*/}
+          {/*    )}*/}
+          {/*  </TouchableWithoutFeedback>*/}
+          {/*</View>*/}
           <Button
             color="#6D3E84"
             title="Cadastrar Item"

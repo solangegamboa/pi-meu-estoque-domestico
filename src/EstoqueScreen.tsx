@@ -65,10 +65,10 @@ const EstoqueScreen = (props: any) => {
               data={products}
               key={2}
               renderItem={renderProduto}
-              numColumns={2}
-              keyExtractor={item => item.id.toString()}
+              numColumns={1}
+              keyExtractor={item => `est-${item.id}`}
               extraData={products.length}
-              initialNumToRender={2}
+              initialNumToRender={4}
             />
           ) : (
             <Text>Sem produtos cadastrado</Text>

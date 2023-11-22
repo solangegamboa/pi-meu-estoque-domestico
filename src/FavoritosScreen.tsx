@@ -48,19 +48,19 @@ export const FavoritosScreen = (props: any) => {
   );
 
   return (
-    <View key="estoque-screen-view">
+    <View key="favorito-screen-view">
       <ImageBackground
         source={require('../Assets/img/cadastroBackground.png')}
         style={componentStyles.backgroundImage}
-        key="estoque-screen-bg">
+        key="favorito-screen-bg">
         <View>
           {products !== undefined && products.length > 0 ? (
             <FlatList
               data={products}
               key={2}
               renderItem={renderProduto}
-              numColumns={2}
-              keyExtractor={item => item.id.toString()}
+              numColumns={1}
+              keyExtractor={item => `fav-${item.id}`}
               extraData={products.length}
               initialNumToRender={2}
             />
