@@ -1,23 +1,20 @@
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from "react";
 import {
   View,
   Text,
   FlatList,
   ImageBackground,
-  ScrollView,
   StyleSheet,
-} from 'react-native';
-import {styles} from './App';
-import {ProdutoCard} from './componentes/ProdutoCard';
-import {Provider, useDispatch, useSelector} from 'react-redux';
-import {store} from './store';
+} from "react-native";
+import { ProdutoCard } from "./componentes/ProdutoCard";
+import { useDispatch, useSelector } from "react-redux";
 import {
   ProductType,
   decrementQty,
   incrementQty,
   selectProductList,
   toogleFavorito,
-} from './features/productSlice';
+} from "./features/productSlice";
 
 const EstoqueScreen = (props: any) => {
   const listaProdutos = useSelector(selectProductList);
@@ -42,7 +39,7 @@ const EstoqueScreen = (props: any) => {
     setProducts(listaProdutos.products);
   }, [listaProdutos]);
 
-  const renderProduto = ({item}: {item: ProductType}) => (
+  const renderProduto = ({ item }: { item: ProductType }) => (
     <ProdutoCard
       product={item}
       componentId={props.componentId}
@@ -55,9 +52,10 @@ const EstoqueScreen = (props: any) => {
   return (
     <View key="estoque-screen-view">
       <ImageBackground
-        source={require('../Assets/img/cadastroBackground.png')}
+        source={require("../Assets/img/cadastroBackground.png")}
         style={componentStyles.backgroundImage}
-        key="estoque-screen-bg">
+        key="estoque-screen-bg"
+      >
         <View>
           {products !== undefined && products.length > 0 ? (
             <FlatList
@@ -65,7 +63,7 @@ const EstoqueScreen = (props: any) => {
               key={2}
               renderItem={renderProduto}
               numColumns={1}
-              keyExtractor={item => `est-${item.id}`}
+              keyExtractor={(item) => `est-${item.id}`}
               extraData={products.length}
               initialNumToRender={4}
             />
@@ -81,11 +79,11 @@ const EstoqueScreen = (props: any) => {
 EstoqueScreen.options = {
   topBar: {
     title: {
-      text: 'Meu Estoque',
+      text: "Meu Estoque",
     },
   },
   bottomTab: {
-    text: 'Meu Estoque',
+    text: "Meu Estoque",
   },
 };
 
@@ -95,8 +93,8 @@ const componentStyles = StyleSheet.create({
     margin: 20,
   },
   backgroundImage: {
-    resizeMode: 'cover',
-    width: '100%',
+    resizeMode: "cover",
+    width: "100%",
   },
 });
 

@@ -4,10 +4,40 @@ import { CadastroScreen } from "./CadastroScreen";
 import { ProdutoDetalheScreen } from "./ProdutoDetalhesScreen";
 import { FavoritosScreen } from "./FavoritosScreen";
 import EstoqueScreen from "./EstoqueScreen";
-import { Provider } from "react-redux";
+import { Provider, useDispatch } from "react-redux";
 import { store } from "./store";
+import {
+  ProductType,
+  produtoRef,
+  setProductsOnline,
+} from "./features/productSlice";
+import { query, getDocs } from "firebase/firestore";
+import { useEffect } from "react";
 
 const LoginScreen = (props: any) => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const lerProdutos = async () => {
+      const produtosFormatados: ProductType[] = [];
+      const querySnapshot = await getDocs(query(produtoRef));
+      querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        produtosFormatados.push({
+          id: parseInt(doc.id),
+          nome: doc.data().nome,
+          categoria: doc.data().categoria,
+          marca: doc.data().marca,
+          quantidade: doc.data().quantidade,
+          data_compra: doc.data().data_compra,
+          data_validade: doc.data().data_validade,
+          foto: doc.data().foto,
+          favorito: doc.data().favorito,
+        });
+      });
+      dispatch(setProductsOnline(produtosFormatados));
+    };
+    lerProdutos();
+  });
   return (
     <View style={styles.root}>
       <Button
@@ -21,7 +51,7 @@ const LoginScreen = (props: any) => {
 
 Navigation.registerComponent(
   "Login",
-  () => props =>
+  () => (props) =>
     (
       <Provider store={store}>
         <LoginScreen {...props} />
@@ -31,7 +61,7 @@ Navigation.registerComponent(
 );
 Navigation.registerComponent(
   "Estoque",
-  () => props =>
+  () => (props) =>
     (
       <Provider store={store}>
         <EstoqueScreen {...props} />
@@ -41,7 +71,7 @@ Navigation.registerComponent(
 );
 Navigation.registerComponent(
   "Favoritos",
-  () => props =>
+  () => (props) =>
     (
       <Provider store={store}>
         <FavoritosScreen {...props} />
@@ -51,7 +81,7 @@ Navigation.registerComponent(
 );
 Navigation.registerComponent(
   "DetalhesProduto",
-  () => props =>
+  () => (props) =>
     (
       <Provider store={store}>
         <ProdutoDetalheScreen {...props} />
@@ -61,7 +91,7 @@ Navigation.registerComponent(
 );
 Navigation.registerComponent(
   "Cadastro",
-  () => props =>
+  () => (props) =>
     (
       <Provider store={store}>
         <CadastroScreen {...props} />
@@ -79,65 +109,65 @@ const mainRoot = {
             children: [
               {
                 component: {
-                  name: "Cadastro"
-                }
-              }
-            ]
-          }
+                  name: "Cadastro",
+                },
+              },
+            ],
+          },
         },
         {
           stack: {
             children: [
               {
                 component: {
-                  name: "Estoque"
-                }
-              }
-            ]
-          }
+                  name: "Estoque",
+                },
+              },
+            ],
+          },
         },
         {
           stack: {
             children: [
               {
                 component: {
-                  name: "Favoritos"
-                }
-              }
-            ]
-          }
-        }
-      ]
-    }
-  }
+                  name: "Favoritos",
+                },
+              },
+            ],
+          },
+        },
+      ],
+    },
+  },
 };
 const loginRoot = {
   root: {
     component: {
-      name: "Login"
-    }
-  }
+      name: "Login",
+    },
+  },
 };
 
 Navigation.setDefaultOptions({
   statusBar: {
-    backgroundColor: "#4d089a"
+    backgroundColor: "#4d089a",
   },
   topBar: {
     title: {
-      color: "white"
+      color: "white",
     },
     backButton: {
-      color: "white"
+      color: "white",
     },
     background: {
-      color: "#4d089a"
-    }
+      color: "#4d089a",
+    },
   },
   bottomTab: {
     fontSize: 14,
-    selectedFontSize: 14
-  }
+    selectedFontSize: 14,
+  },
 });
 Navigation.events().registerAppLaunchedListener(async () => {
   await Navigation.setRoot(loginRoot);
@@ -148,6 +178,6 @@ export const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "whitesmoke"
-  }
+    backgroundColor: "whitesmoke",
+  },
 });

@@ -7,7 +7,8 @@ import {
   Button,
   ScrollView,
   View,
-  TouchableWithoutFeedback, Alert
+  TouchableWithoutFeedback,
+  Alert,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -29,7 +30,7 @@ export const CadastroScreen = (props: any) => {
     data_compra: "",
     data_validade: "",
     foto: "",
-    favorito: false
+    favorito: false,
   });
 
   const nextId = useSelector(selectNextId);
@@ -37,67 +38,69 @@ export const CadastroScreen = (props: any) => {
   const dispatch = useDispatch();
 
   const addNewProduct = () => {
-      if (form.nome !== undefined) {
-        dispatch(addProduct(form));
-        Alert.alert("Produto cadastrado com sucesso!", "Escolha a próxima ação", [
+    if (form.nome !== undefined) {
+      dispatch(addProduct(form));
+      Alert.alert(
+        "Produto cadastrado com sucesso!",
+        "Escolha a próxima ação",
+        [
           {
             text: "Cadastrar novo produto",
-            onPress: () => console.log('novo produto')
+            onPress: () => console.log("novo produto"),
           },
           {
             text: "Ir para o estoque",
-            onPress: () => Navigation.push(props.componentId, {
-              component: {
-                name: "Estoque"
-              }
-            })
-          }
-        ], { cancelable: false });
-      }
+            onPress: () =>
+              Navigation.push(props.componentId, {
+                component: {
+                  name: "Estoque",
+                },
+              }),
+          },
+        ],
+        { cancelable: false }
+      );
     }
-  ;
-
+  };
   useEffect(() => {
     setForm({ ...form, id: nextId });
   }, [nextId]);
-
 
   return (
     <ScrollView>
       <ImageBackground
         source={require("../Assets/img/cadastroBackground.png")}
         style={componentStyles.backgroundImage}
-        key="cadastro-screen">
+        key="cadastro-screen"
+      >
         <View style={componentStyles.root} key="cadastro-screen-view">
           <TextInput>ID: {nextId}</TextInput>
           <Text style={componentStyles.text}>Nome do produto:</Text>
           <TextInput
             style={componentStyles.input}
             value={form.nome}
-            onChangeText={text => setForm({ ...form, nome: text })}
+            onChangeText={(text) => setForm({ ...form, nome: text })}
           />
 
           <Text style={componentStyles.text}>Categoria:</Text>
           <TextInput
             style={componentStyles.input}
             value={form.categoria}
-            onChangeText={text => setForm({ ...form, categoria: text })}
+            onChangeText={(text) => setForm({ ...form, categoria: text })}
           />
 
           <Text style={componentStyles.text}>Marca:</Text>
           <TextInput
             style={componentStyles.input}
             value={form.marca}
-            onChangeText={text => setForm({ ...form, marca: text })}
+            onChangeText={(text) => setForm({ ...form, marca: text })}
           />
 
           <Text style={componentStyles.text}>Quantidade:</Text>
           <TextInput
             style={componentStyles.input}
             value={form.quantidade}
-            onChangeText={text =>
-              setForm({ ...form, quantidade: text })
-            }
+            onChangeText={(text) => setForm({ ...form, quantidade: text })}
           />
 
           <Text style={componentStyles.text}>Data de compra:</Text>
@@ -105,7 +108,7 @@ export const CadastroScreen = (props: any) => {
             style={componentStyles.input}
             value={form.data_compra}
             mask={Masks.DATE_DDMMYYYY}
-            onChangeText={text => setForm({ ...form, data_compra: text })}
+            onChangeText={(text) => setForm({ ...form, data_compra: text })}
           />
 
           <Text style={componentStyles.text}>Validade:</Text>
@@ -113,7 +116,7 @@ export const CadastroScreen = (props: any) => {
             style={componentStyles.input}
             value={form.data_validade}
             mask={Masks.DATE_DDMMYYYY}
-            onChangeText={text => setForm({ ...form, data_validade: text })}
+            onChangeText={(text) => setForm({ ...form, data_validade: text })}
           />
 
           {/*<View style={componentStyles.container}>*/}
@@ -150,27 +153,27 @@ export const CadastroScreen = (props: any) => {
 CadastroScreen.options = {
   topBar: {
     title: {
-      text: "Cadastro do Produto"
-    }
+      text: "Cadastro do Produto",
+    },
   },
   bottomTab: {
-    text: "Cadastro"
-  }
+    text: "Cadastro",
+  },
 };
 
 const componentStyles = StyleSheet.create({
   root: {
     flex: 1,
-    margin: 20
+    margin: 20,
   },
   backgroundImage: {
     resizeMode: "cover",
-    width: "100%"
+    width: "100%",
   },
   text: {
     color: "#000",
     marginBottom: 12,
-    marginTop: 12
+    marginTop: 12,
   },
   input: {
     height: 30,
@@ -178,7 +181,7 @@ const componentStyles = StyleSheet.create({
     borderColor: "#8A7395",
     borderRadius: 14,
     backgroundColor: "#fff",
-    padding: 8
+    padding: 8,
   },
   image: {
     width: 150,
@@ -186,18 +189,18 @@ const componentStyles = StyleSheet.create({
     borderRadius: 8,
     borderColor: "#8A7395",
     borderWidth: 1,
-    borderStyle: "dashed"
+    borderStyle: "dashed",
   },
   container: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
     padding: 15,
-    marginBottom: 15
+    marginBottom: 15,
   },
   button: {
     width: 150,
-    height: 150
+    height: 150,
   },
   cameraIconContainer: {
     width: 150,
@@ -208,10 +211,10 @@ const componentStyles = StyleSheet.create({
     borderWidth: 1,
     borderStyle: "dashed",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   cameraIcon: {
     width: 25,
-    height: 25
-  }
+    height: 25,
+  },
 });

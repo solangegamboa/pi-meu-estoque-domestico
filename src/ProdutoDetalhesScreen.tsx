@@ -21,29 +21,36 @@ export const ProdutoDetalheScreen = (props: any) => {
 
   return (
     <View style={componentStyles.root} key="produto-detalhe-screen">
-
       <View style={componentStyles.containerPhoto}>
-        <Image source={require("../Assets/img/can.png")} style={{ width: 150, height: 150 }} />
+        <Image
+          source={require("../Assets/img/can.png")}
+          style={{ width: 150, height: 150 }}
+        />
 
         <View>
           <Text style={componentStyles.text}>Quantidade:</Text>
           <View style={componentStyles.containerQuantity}>
-            <Pressable style={componentStyles.button} onPress={() => removerUnidade()}>
+            <Pressable
+              style={componentStyles.button}
+              onPress={() => removerUnidade()}
+            >
               <Text style={componentStyles.textButton}>-</Text>
             </Pressable>
             <Text style={componentStyles.textQuantity}>{qty}</Text>
-            <Pressable style={componentStyles.button} onPress={() => adicionarUnidade()}>
+            <Pressable
+              style={componentStyles.button}
+              onPress={() => adicionarUnidade()}
+            >
               <Text style={componentStyles.textButton}>+</Text>
             </Pressable>
           </View>
         </View>
-
       </View>
 
       <View style={componentStyles.containerDetails}>
         <View style={componentStyles.containerFlex}>
           <Text style={componentStyles.text}>Nome do Produto:</Text>
-          <Text style={componentStyles.text}>{props.product.name}</Text>
+          <Text style={componentStyles.text}>{props.product.nome}</Text>
         </View>
 
         <View style={componentStyles.containerFlex}>
@@ -63,7 +70,9 @@ export const ProdutoDetalheScreen = (props: any) => {
 
         <View style={componentStyles.containerFlex}>
           <Text style={componentStyles.text}>Validade:</Text>
-          <Text style={componentStyles.text}>{props.product.data_validade}</Text>
+          <Text style={componentStyles.text}>
+            {props.product.data_validade}
+          </Text>
         </View>
       </View>
     </View>
@@ -72,54 +81,54 @@ export const ProdutoDetalheScreen = (props: any) => {
 ProdutoDetalheScreen.options = {
   topBar: {
     title: {
-      text: "Detalhe do Produto"
-    }
+      text: "Detalhe do Produto",
+    },
   },
   bottomTab: {
-    text: "Detalhe do Produto"
-  }
+    text: "Detalhe do Produto",
+  },
 };
 
 const componentStyles = StyleSheet.create({
   root: {
-    flex: 1
+    flex: 1,
   },
   containerPhoto: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
-    margin: 40
+    margin: 40,
   },
   containerQuantity: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center"
+    alignItems: "center",
   },
   containerDetails: {
     flex: 1,
     padding: 40,
     backgroundColor: "#FFED8D",
     borderTopLeftRadius: 50,
-    borderTopRightRadius: 50
+    borderTopRightRadius: 50,
   },
   containerFlex: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
-    margin: 12
+    margin: 12,
   },
   text: {
-    color: "#000"
+    color: "#000",
   },
   button: {
     backgroundColor: "#6D3E84",
     width: 30,
-    borderRadius: 8
+    borderRadius: 8,
   },
   textButton: {
     textAlign: "center",
-    color: "#fff"
+    color: "#fff",
   },
   textQuantity: {
     width: 40,
@@ -128,6 +137,6 @@ const componentStyles = StyleSheet.create({
     borderColor: "#8A7395",
     borderWidth: 1,
     textAlign: "center",
-    margin: 10
-  }
+    margin: 10,
+  },
 });
