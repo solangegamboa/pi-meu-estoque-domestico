@@ -107,6 +107,7 @@ export const LoginScreen = (props: any) => {
           <TextInput
             style={componentStyles.input}
             value={form.password}
+            secureTextEntry
             onChangeText={(text) => setForm({ ...form, password: text })}
           />
           {errorMessage && <Text>{errorMessage}</Text>}
@@ -133,6 +134,7 @@ export const LoginScreen = (props: any) => {
           <TextInput
             style={componentStyles.input}
             value={form.password}
+            secureTextEntry
             onChangeText={(text) => setForm({ ...form, password: text })}
           />
           {errorMessage && <Text>{errorMessage}</Text>}
