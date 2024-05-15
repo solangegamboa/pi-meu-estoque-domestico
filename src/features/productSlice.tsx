@@ -41,6 +41,11 @@ export interface ProductType {
   uid: string;
 }
 
+type SingleQty = {
+  uid: string;
+  id: number;
+};
+
 const productSlice = createSlice({
   name: "productSlice",
   initialState,
@@ -50,30 +55,39 @@ const productSlice = createSlice({
     },
     addProduct: (state, action: PayloadAction<ProductType>) => {
       state.products.push(action.payload);
-      var produtoRef = doc(
-        collection(db, "users", action.payload.uid),
-        `produtos/${action.payload.id}`
+      setDoc(
+        doc(
+          collection(db, "users"),
+          `${action.payload.uid}/produto/${action.payload.id}`
+        ),
+        {
+          nome: action.payload.nome,
+          categoria: action.payload.categoria,
+          marca: action.payload.marca,
+          quantidade: action.payload.quantidade,
+          data_compra: action.payload.data_compra,
+          data_validade: action.payload.data_validade,
+          foto: "",
+          favorito: false,
+          uid: action.payload.uid,
+        }
       );
-      setDoc(produtoRef, {
-        nome: action.payload.nome,
-        categoria: action.payload.categoria,
-        marca: action.payload.marca,
-        quantidade: action.payload.quantidade,
-        data_compra: action.payload.data_compra,
-        data_validade: action.payload.data_validade,
-        foto: "",
-        favorito: false,
-      });
     },
-    incrementQty: (state, action: PayloadAction<number>) => {
+    incrementQty: (state, action: PayloadAction<SingleQty>) => {
       state.products = state.products.map((prod) => {
         if (
-          prod.id === action.payload &&
+          prod.id === action.payload.id &&
           (parseInt(prod.quantidade) > 0).toString()
         ) {
-          updateDoc(doc(db, "user", "produtos"), {
-            quantidade: parseInt(prod.quantidade) + 1,
-          });
+          updateDoc(
+            doc(
+              collection(db, "users"),
+              `${action.payload.uid}/produto/${action.payload.id}`
+            ),
+            {
+              quantidade: parseInt(prod.quantidade) + 1,
+            }
+          );
           return {
             ...prod,
             quantidade: (parseInt(prod.quantidade) + 1).toString(),
@@ -83,15 +97,22 @@ const productSlice = createSlice({
         return prod;
       });
     },
-    decrementQty: (state, action: PayloadAction<number>) => {
+    decrementQty: (state, action: PayloadAction<SingleQty>) => {
       state.products = state.products.map((prod) => {
         if (
-          prod.id === action.payload &&
+          prod.id === action.payload.id &&
           (parseInt(prod.quantidade) > 0).toString()
         ) {
-          updateDoc(doc(db, "produto", action.payload.toString()), {
-            quantidade: parseInt(prod.quantidade) - 1,
-          });
+          console.log(`${action.payload.uid}/produto/${action.payload.id}`)
+          updateDoc(
+            doc(
+              collection(db, "users"),
+              `${action.payload.uid}/produto/${action.payload.id}`
+            ),
+            {
+              quantidade: parseInt(prod.quantidade) - 1,
+            }
+          );
           return {
             ...prod,
             quantidade: (parseInt(prod.quantidade) - 1).toString(),
@@ -101,21 +122,33 @@ const productSlice = createSlice({
         return prod;
       });
     },
-    toogleFavorito: (state, action: PayloadAction<number>) => {
+    toogleFavorito: (state, action: PayloadAction<SingleQty>) => {
       state.products = state.products.map((prod) => {
-        if (prod.id === action.payload) {
-          updateDoc(doc(db, "produto", action.payload.toString()), {
-            favorito: !prod.favorito,
-          });
+        if (prod.id === action.payload.id) {
+          updateDoc(
+            doc(
+              collection(db, "users"),
+              `${action.payload.uid}/produto/${action.payload.id}`
+            ),
+            {
+              favorito: !prod.favorito,
+            }
+          );
           return { ...prod, favorito: !prod.favorito };
         }
         return prod;
       });
     },
-    removeProduct: (state, action: PayloadAction<number>) => {
+    removeProduct: (state, action: PayloadAction<SingleQty>) => {
       state.products = state.products.filter((prod) => {
-        const cond = prod.id !== action.payload;
-        if (cond) deleteDoc(doc(db, "produto", action.payload.toString()));
+        const cond = prod.id !== action.payload.id;
+        if (cond)
+          deleteDoc(
+            doc(
+              collection(db, "users"),
+              `${action.payload.uid}/produto/${action.payload.id}`
+            )
+          );
         return cond;
       });
     },
@@ -136,7 +169,7 @@ export default productSlice.reducer;
 export const selectProductList = (state: RootState) => state.productSlice;
 
 export const selectNextId = (state: RootState) => {
-  return state.productSlice.products.length > 1
+  return state.productSlice.products.length >= 1
     ? state.productSlice.products[state.productSlice.products.length - 1].id + 1
     : 1;
 };

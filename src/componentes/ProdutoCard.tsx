@@ -1,7 +1,8 @@
 import { Button, Image, Pressable, StyleSheet, Switch, Text, View } from "react-native";
 import { ProductType, removeProduct } from "../features/productSlice";
 import { Navigation } from "react-native-navigation";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { selectClient } from "../features/clientsSlice";
 
 type ProductCardProps = {
   product: ProductType;
@@ -19,9 +20,9 @@ export const ProdutoCard = ({
                               toogleFavorito
                             }: ProductCardProps) => {
   const dispatch = useDispatch();
-
+  const selectorClient = useSelector(selectClient);
   const deleta = () => {
-    dispatch(removeProduct(product.id));
+    dispatch(removeProduct({ uid: selectorClient.uid, id: product.id }));
   };
 
   return (

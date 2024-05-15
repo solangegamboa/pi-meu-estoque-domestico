@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-import { collection, deleteDoc, updateDoc } from "firebase/firestore";
+import { collection } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 import { doc, getFirestore, setDoc } from "firebase/firestore";
 import { storage } from "../App";
@@ -34,7 +34,8 @@ const clientSlice = createSlice({
   initialState,
   reducers: {
     login: (state, action: PayloadAction<ClientState>) => {
-      state = action.payload;
+      state.email = action.payload.email;
+      state.uid = action.payload.uid;
       storage.save({ key: "loginState", data: action.payload });
     },
     getClient: (state) => {
@@ -64,7 +65,6 @@ const clientSlice = createSlice({
         })
         .then((ret) => {
           // found data go to then()
-          console.log(ret.userid);
           state = ret;
         })
         .catch((err) => {
@@ -88,4 +88,4 @@ export const { login, getClient } = clientSlice.actions;
 
 export default clientSlice.reducer;
 
-export const selectClient = (state: RootState) => state;
+export const selectClient = (state: RootState) => state.clientsSlice;

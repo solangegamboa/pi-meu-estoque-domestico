@@ -25,7 +25,7 @@ export const LoginScreen = (props: any) => {
     const lerProdutos = async () => {
       const produtosFormatados: ProductType[] = [];
       const querySnapshot = await getDocs(
-        query(collection(db, uid, "produtos"))
+        query(collection(db, "users", `${uid}/produto/`))
       );
       querySnapshot.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
@@ -39,8 +39,10 @@ export const LoginScreen = (props: any) => {
           data_validade: doc.data().data_validade,
           foto: doc.data().foto,
           favorito: doc.data().favorito,
+          uid: uid,
         });
       });
+      console.log(produtosFormatados.length);
       dispatch(setProductsOnline(produtosFormatados));
     };
     lerProdutos();

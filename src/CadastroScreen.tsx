@@ -22,7 +22,7 @@ import { selectClient } from "./features/clientsSlice";
 
 export const CadastroScreen = (props: any) => {
   const [galleryPhoto, setGalleryPhoto] = useState("");
-  const selectorClient = useSelector(selectClient);
+
   const [form, setForm] = useState<ProductType>({
     id: 0,
     nome: "",
@@ -37,12 +37,13 @@ export const CadastroScreen = (props: any) => {
   });
 
   const nextId = useSelector(selectNextId);
+  const selectorClient = useSelector(selectClient);
 
   const dispatch = useDispatch();
 
   const addNewProduct = () => {
     if (form.nome !== undefined) {
-      form.uid = selectorClient.clientsSlice.uid;
+      form.uid = selectorClient.uid;
       dispatch(addProduct(form));
       Alert.alert(
         "Produto cadastrado com sucesso!",
@@ -66,6 +67,7 @@ export const CadastroScreen = (props: any) => {
       );
     }
   };
+
   useEffect(() => {
     setForm({ ...form, id: nextId });
   }, [nextId]);

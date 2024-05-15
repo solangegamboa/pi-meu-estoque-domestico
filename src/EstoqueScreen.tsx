@@ -27,24 +27,23 @@ const EstoqueScreen = (props: any) => {
 
   const incrementQuantidade = (productId: number) => {
     dispatch(
-      incrementQty({ uid: selectorClient.clientsSlice.uid, id: productId })
+      incrementQty({ uid: selectorClient.uid, id: productId })
     );
   };
 
   const decrementQuantidade = (productId: number) => {
     dispatch(
-      decrementQty({ uid: selectorClient.clientsSlice.uid, id: productId })
+      decrementQty({ uid: selectorClient.uid, id: productId })
     );
   };
 
   const favorito = (productId: number) => {
     dispatch(
-      toogleFavorito({ uid: selectorClient.clientsSlice.uid, id: productId })
+      toogleFavorito({ uid: selectorClient.uid, id: productId })
     );
   };
 
   useEffect(() => {
-    console.log(listaProdutos);
     setProducts(listaProdutos.products);
   }, [listaProdutos]);
 

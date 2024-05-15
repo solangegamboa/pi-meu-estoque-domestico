@@ -1,21 +1,23 @@
 import { View, Text, Button, Pressable, StyleSheet, Image } from "react-native";
 import { styles } from "./App";
 import { store } from "./store";
-import { Provider, useDispatch } from "react-redux";
+import { Provider, useDispatch, useSelector } from "react-redux";
 import { decrementQty, incrementQty } from "./features/productSlice";
 import { useState } from "react";
+import { selectClient } from "./features/clientsSlice";
 
 export const ProdutoDetalheScreen = (props: any) => {
   const dispatch = useDispatch();
   const [qty, setQty] = useState<string>(props?.product?.quantidade);
+  const selectorClient = useSelector(selectClient);
 
   const adicionarUnidade = () => {
-    dispatch(incrementQty(props.productId));
+    dispatch(incrementQty({ uid: selectorClient.uid, id: props.productId }));
     setQty((parseInt(qty) + 1).toString());
   };
 
   const removerUnidade = () => {
-    dispatch(decrementQty(props.productId));
+    dispatch(decrementQty({ uid: selectorClient.uid, id: props.productId }));
     if (parseInt(qty) > 0) setQty((parseInt(qty) - 1).toString());
   };
 
