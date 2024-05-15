@@ -1,53 +1,14 @@
-import { View, Button, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { Navigation } from "react-native-navigation";
 import { CadastroScreen } from "./CadastroScreen";
 import { ProdutoDetalheScreen } from "./ProdutoDetalhesScreen";
 import { FavoritosScreen } from "./FavoritosScreen";
 import EstoqueScreen from "./EstoqueScreen";
-import { Provider, useDispatch } from "react-redux";
+import { Provider } from "react-redux";
 import { store } from "./store";
-import {
-  ProductType,
-  produtoRef,
-  setProductsOnline,
-} from "./features/productSlice";
-import { query, getDocs } from "firebase/firestore";
-import { useEffect } from "react";
-
-const LoginScreen = (props: any) => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    const lerProdutos = async () => {
-      const produtosFormatados: ProductType[] = [];
-      const querySnapshot = await getDocs(query(produtoRef));
-      querySnapshot.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
-        produtosFormatados.push({
-          id: parseInt(doc.id),
-          nome: doc.data().nome,
-          categoria: doc.data().categoria,
-          marca: doc.data().marca,
-          quantidade: doc.data().quantidade,
-          data_compra: doc.data().data_compra,
-          data_validade: doc.data().data_validade,
-          foto: doc.data().foto,
-          favorito: doc.data().favorito,
-        });
-      });
-      dispatch(setProductsOnline(produtosFormatados));
-    };
-    lerProdutos();
-  });
-  return (
-    <View style={styles.root}>
-      <Button
-        title="Login"
-        color="#710ce3"
-        onPress={() => Navigation.setRoot(mainRoot)}
-      />
-    </View>
-  );
-};
+import { LoginScreen } from "./Login";
+import Storage from "react-native-storage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 Navigation.registerComponent(
   "Login",
@@ -100,47 +61,6 @@ Navigation.registerComponent(
   () => CadastroScreen
 );
 
-const mainRoot = {
-  root: {
-    bottomTabs: {
-      children: [
-        {
-          stack: {
-            children: [
-              {
-                component: {
-                  name: "Cadastro",
-                },
-              },
-            ],
-          },
-        },
-        {
-          stack: {
-            children: [
-              {
-                component: {
-                  name: "Estoque",
-                },
-              },
-            ],
-          },
-        },
-        {
-          stack: {
-            children: [
-              {
-                component: {
-                  name: "Favoritos",
-                },
-              },
-            ],
-          },
-        },
-      ],
-    },
-  },
-};
 const loginRoot = {
   root: {
     component: {
@@ -179,5 +99,28 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "whitesmoke",
+  },
+});
+
+export const storage = new Storage({
+  // maximum capacity, default 1000 key-ids
+  size: 1000,
+
+  // Use AsyncStorage for RN apps, or window.localStorage for web apps.
+  // If storageBackend is not set, data will be lost after reload.
+  storageBackend: AsyncStorage, // for web: window.localStorage
+
+  // expire time, default: 1 day (1000 * 3600 * 24 milliseconds).
+  // can be null, which means never expire.
+  defaultExpires: 1000 * 3600 * 24,
+
+  // cache data in the memory. default is true.
+  enableCache: true,
+
+  // if data was not found in storage or expired data was found,
+  // the corresponding sync method will be invoked returning
+  // the latest data.
+  sync: {
+    // we'll talk about the details later.
   },
 });

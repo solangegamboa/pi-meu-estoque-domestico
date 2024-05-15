@@ -15,27 +15,36 @@ import {
   selectProductList,
   toogleFavorito,
 } from "./features/productSlice";
+import { selectClient } from "./features/clientsSlice";
 
 const EstoqueScreen = (props: any) => {
   const listaProdutos = useSelector(selectProductList);
+  const selectorClient = useSelector(selectClient);
 
   const dispatch = useDispatch();
 
   const [products, setProducts] = useState<ProductType[]>();
 
   const incrementQuantidade = (productId: number) => {
-    dispatch(incrementQty(productId));
+    dispatch(
+      incrementQty({ uid: selectorClient.clientsSlice.uid, id: productId })
+    );
   };
 
   const decrementQuantidade = (productId: number) => {
-    dispatch(decrementQty(productId));
+    dispatch(
+      decrementQty({ uid: selectorClient.clientsSlice.uid, id: productId })
+    );
   };
 
   const favorito = (productId: number) => {
-    dispatch(toogleFavorito(productId));
+    dispatch(
+      toogleFavorito({ uid: selectorClient.clientsSlice.uid, id: productId })
+    );
   };
 
   useEffect(() => {
+    console.log(listaProdutos);
     setProducts(listaProdutos.products);
   }, [listaProdutos]);
 

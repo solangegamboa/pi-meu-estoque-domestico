@@ -3,6 +3,9 @@ import { RootState } from "../store";
 import { collection, deleteDoc, updateDoc } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 import { doc, getFirestore, setDoc } from "firebase/firestore";
+import { getClient, selectClient } from "./clientsSlice";
+import { useSelector } from "react-redux";
+import { act } from "react-test-renderer";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAzgE4fqm5YZqnCPO7f9WXsJlun_bwB14Y",
@@ -16,7 +19,6 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
-export const produtoRef = collection(db, "produto");
 
 type ProductState = {
   products: ProductType[];
@@ -36,6 +38,7 @@ export interface ProductType {
   data_validade: string;
   foto: string;
   favorito: boolean;
+  uid: string;
 }
 
 const productSlice = createSlice({
@@ -47,7 +50,11 @@ const productSlice = createSlice({
     },
     addProduct: (state, action: PayloadAction<ProductType>) => {
       state.products.push(action.payload);
-      setDoc(doc(db, "produto", action.payload.id.toString()), {
+      var produtoRef = doc(
+        collection(db, "users", action.payload.uid),
+        `produtos/${action.payload.id}`
+      );
+      setDoc(produtoRef, {
         nome: action.payload.nome,
         categoria: action.payload.categoria,
         marca: action.payload.marca,
@@ -64,7 +71,7 @@ const productSlice = createSlice({
           prod.id === action.payload &&
           (parseInt(prod.quantidade) > 0).toString()
         ) {
-          updateDoc(doc(db, "produto", action.payload.toString()), {
+          updateDoc(doc(db, "user", "produtos"), {
             quantidade: parseInt(prod.quantidade) + 1,
           });
           return {
@@ -128,5 +135,8 @@ export default productSlice.reducer;
 
 export const selectProductList = (state: RootState) => state.productSlice;
 
-export const selectNextId = (state: RootState) =>
-  state.productSlice.products[state.productSlice.products.length - 1].id + 1;
+export const selectNextId = (state: RootState) => {
+  return state.productSlice.products.length > 1
+    ? state.productSlice.products[state.productSlice.products.length - 1].id + 1
+    : 1;
+};

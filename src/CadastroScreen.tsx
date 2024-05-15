@@ -18,9 +18,11 @@ import MaskInput, { Masks } from "react-native-mask-input";
 // @ts-ignore
 import iconCamera from "../Assets/img/iconCamera.png";
 import { Navigation } from "react-native-navigation";
+import { selectClient } from "./features/clientsSlice";
 
 export const CadastroScreen = (props: any) => {
   const [galleryPhoto, setGalleryPhoto] = useState("");
+  const selectorClient = useSelector(selectClient);
   const [form, setForm] = useState<ProductType>({
     id: 0,
     nome: "",
@@ -31,6 +33,7 @@ export const CadastroScreen = (props: any) => {
     data_validade: "",
     foto: "",
     favorito: false,
+    uid: "0123",
   });
 
   const nextId = useSelector(selectNextId);
@@ -39,6 +42,7 @@ export const CadastroScreen = (props: any) => {
 
   const addNewProduct = () => {
     if (form.nome !== undefined) {
+      form.uid = selectorClient.clientsSlice.uid;
       dispatch(addProduct(form));
       Alert.alert(
         "Produto cadastrado com sucesso!",
