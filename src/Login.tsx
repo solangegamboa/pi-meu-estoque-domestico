@@ -1,6 +1,13 @@
 import { collection, getDocs, query } from "firebase/firestore";
-import { useEffect, useState } from "react";
-import { View, Button, Text, StyleSheet, TextInput } from "react-native";
+import { useState } from "react";
+import {
+  View,
+  Button,
+  Text,
+  StyleSheet,
+  TextInput,
+  LogBox,
+} from "react-native";
 import { Navigation } from "react-native-navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { styles } from "./App";
@@ -20,6 +27,9 @@ export const LoginScreen = (props: any) => {
     email: "",
     password: "",
   });
+
+  const [showCadastrar, setShowCadastrar] = useState<Boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>();
 
   const loadProducts = (uid: string) => {
     const lerProdutos = async () => {
@@ -42,7 +52,6 @@ export const LoginScreen = (props: any) => {
           uid: uid,
         });
       });
-      console.log(produtosFormatados.length);
       dispatch(setProductsOnline(produtosFormatados));
     };
     lerProdutos();
@@ -52,7 +61,6 @@ export const LoginScreen = (props: any) => {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, form.email, form.password)
       .then((userCredential) => {
-        // Signed in
         const user = userCredential.user;
         dispatch(login({ email: user.email, uid: user.uid }));
         loadProducts(user.uid);
@@ -61,6 +69,7 @@ export const LoginScreen = (props: any) => {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        setErrorMessage(error.message);
         console.log("errorCode", errorCode);
         console.log("errorMessage", errorMessage);
       });
@@ -73,48 +82,68 @@ export const LoginScreen = (props: any) => {
         const user = userCredential.user;
         dispatch(login({ email: user.email, uid: user.uid }));
         loadProducts(user.uid);
+        setShowCadastrar(false);
         Navigation.setRoot(mainRoot);
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log("errorCode", errorCode);
-        console.log("errorMessage", errorMessage);
+        const message =
+          error.code === "auth/email-already-in-use"
+            ? "Usuário já cadastrado, faça o login"
+            : error.message;
+        setErrorMessage(message);
       });
   };
   return (
     <>
-      <View style={styles.root}>
-        <Text style={componentStyles.text}>Email:</Text>
-        <TextInput
-          style={componentStyles.input}
-          value={form.email}
-          onChangeText={(text) => setForm({ ...form, email: text })}
-        />
-        <Text style={componentStyles.text}>Senha:</Text>
-        <TextInput
-          style={componentStyles.input}
-          value={form.password}
-          onChangeText={(text) => setForm({ ...form, password: text })}
-        />
-        <Button title="Login" color="#710ce3" onPress={() => logar()} />
-      </View>
-
-      <View style={styles.root}>
-        <Text style={componentStyles.text}>Email:</Text>
-        <TextInput
-          style={componentStyles.input}
-          value={form.email}
-          onChangeText={(text) => setForm({ ...form, email: text })}
-        />
-        <Text style={componentStyles.text}>Senha:</Text>
-        <TextInput
-          style={componentStyles.input}
-          value={form.password}
-          onChangeText={(text) => setForm({ ...form, password: text })}
-        />
-        <Button title="Cadastro" color="#710ce3" onPress={() => cadastrar()} />
-      </View>
+      {showCadastrar ? (
+        <View style={styles.root}>
+          <Text style={componentStyles.text}>Email:</Text>
+          <TextInput
+            style={componentStyles.input}
+            value={form.email}
+            onChangeText={(text) => setForm({ ...form, email: text })}
+          />
+          <Text style={componentStyles.text}>Senha:</Text>
+          <TextInput
+            style={componentStyles.input}
+            value={form.password}
+            onChangeText={(text) => setForm({ ...form, password: text })}
+          />
+          {errorMessage && <Text>{errorMessage}</Text>}
+          <Button
+            title="Cadastrar"
+            color="#710ce3"
+            onPress={() => cadastrar()}
+          />
+          <Button
+            title="Ir para Login"
+            color="#710ce3"
+            onPress={() => setShowCadastrar(false)}
+          />
+        </View>
+      ) : (
+        <View style={styles.root}>
+          <Text style={componentStyles.text}>Email:</Text>
+          <TextInput
+            style={componentStyles.input}
+            value={form.email}
+            onChangeText={(text) => setForm({ ...form, email: text })}
+          />
+          <Text style={componentStyles.text}>Senha:</Text>
+          <TextInput
+            style={componentStyles.input}
+            value={form.password}
+            onChangeText={(text) => setForm({ ...form, password: text })}
+          />
+          {errorMessage && <Text>{errorMessage}</Text>}
+          <Button title="Login" color="#710ce3" onPress={() => logar()} />
+          <Button
+            title="Ir para Cadastro"
+            color="#710ce3"
+            onPress={() => setShowCadastrar(true)}
+          />
+        </View>
+      )}
     </>
   );
 };
