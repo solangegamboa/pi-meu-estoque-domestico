@@ -57,6 +57,23 @@ export const LoginScreen = (props: any) => {
     lerProdutos();
   };
 
+  const trataError = (code: string) => {
+    switch (code) {
+      case "auth/too-many-requests":
+        return "Muitas tentativas de login inválidas, conta bloqueada temporariamente. Tente novamente mais tarde";
+      case "auth/missing-password":
+        return "Preencha a senha";
+      case "auth/invalid-credential":
+        return "Email ou senha inválidos";
+      case "auth/missing-email":
+        return "Preencha o e-mail";
+      case "auth/email-already-in-use":
+        return "Usuário já cadastrado, Faça o Login";
+      default:
+        return code;
+    }
+  };
+
   const logar = () => {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, form.email, form.password)
@@ -67,11 +84,7 @@ export const LoginScreen = (props: any) => {
         Navigation.setRoot(mainRoot);
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        setErrorMessage(error.message);
-        console.log("errorCode", errorCode);
-        console.log("errorMessage", errorMessage);
+        setErrorMessage(trataError(error.code));
       });
   };
 
@@ -86,11 +99,7 @@ export const LoginScreen = (props: any) => {
         Navigation.setRoot(mainRoot);
       })
       .catch((error) => {
-        const message =
-          error.code === "auth/email-already-in-use"
-            ? "Usuário já cadastrado, faça o login"
-            : error.message;
-        setErrorMessage(message);
+        setErrorMessage(trataError(error.code));
       });
   };
   return (

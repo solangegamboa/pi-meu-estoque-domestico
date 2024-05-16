@@ -1,3 +1,4 @@
+#import "Firebase.h"
 #import "RNNAppDelegate.h"
 #import <UIKit/UIKit.h>
 

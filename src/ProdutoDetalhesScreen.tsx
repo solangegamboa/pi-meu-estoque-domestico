@@ -1,7 +1,5 @@
-import { View, Text, Button, Pressable, StyleSheet, Image } from "react-native";
-import { styles } from "./App";
-import { store } from "./store";
-import { Provider, useDispatch, useSelector } from "react-redux";
+import { View, Text, Pressable, StyleSheet, Image } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 import { decrementQty, incrementQty } from "./features/productSlice";
 import { useState } from "react";
 import { selectClient } from "./features/clientsSlice";
@@ -25,7 +23,9 @@ export const ProdutoDetalheScreen = (props: any) => {
     <View style={componentStyles.root} key="produto-detalhe-screen">
       <View style={componentStyles.containerPhoto}>
         <Image
-          source={require("../Assets/img/can.png")}
+          source={{
+            uri: "https://firebasestorage.googleapis.com/v0/b/meuestoquedomestico.appspot.com/o/can.png?alt=media&token=07e95512-54e1-4209-9406-40cd21053b9a",
+          }}
           style={{ width: 150, height: 150 }}
         />
 
@@ -52,28 +52,28 @@ export const ProdutoDetalheScreen = (props: any) => {
       <View style={componentStyles.containerDetails}>
         <View style={componentStyles.containerFlex}>
           <Text style={componentStyles.text}>Nome do Produto:</Text>
-          <Text style={componentStyles.text}>{props.product.nome}</Text>
+          <Text style={componentStyles.text}>{props.product?.nome}</Text>
         </View>
 
         <View style={componentStyles.containerFlex}>
           <Text style={componentStyles.text}>Categoria:</Text>
-          <Text style={componentStyles.text}>{props.product.categoria}</Text>
+          <Text style={componentStyles.text}>{props.product?.categoria}</Text>
         </View>
 
         <View style={componentStyles.containerFlex}>
           <Text style={componentStyles.text}>Marca:</Text>
-          <Text style={componentStyles.text}>{props.product.marca}</Text>
+          <Text style={componentStyles.text}>{props.product?.marca}</Text>
         </View>
 
         <View style={componentStyles.containerFlex}>
           <Text style={componentStyles.text}>Data de Compra:</Text>
-          <Text style={componentStyles.text}>{props.product.data_compra}</Text>
+          <Text style={componentStyles.text}>{props.product?.data_compra}</Text>
         </View>
 
         <View style={componentStyles.containerFlex}>
           <Text style={componentStyles.text}>Validade:</Text>
           <Text style={componentStyles.text}>
-            {props.product.data_validade}
+            {props.product?.data_validade}
           </Text>
         </View>
       </View>

@@ -1,15 +1,14 @@
 # Projeto integrador: Desenvolvimento de sistema web modulaizável
 
 ## Equipe de desenvolvimento
-- PAMELA CHRISTY MESQUITA MUNIZ
-- SOLANGE DA SILVA GAMBOA
-- CARLOS EDUARDO ARANTES PEREIRA BARCELLOS
-- PAULO GIOVANI GOMES PESSOA
-- GIOVANNA PEREIRA DE CASTRO
-- MARIANA SILVA DO CARMO 
-  - devido a dificuldades técnicas, Mariana fez a colaboração em arquivos enviados para Solange Gamboa fazer o merge no projeto - Tela de Estoque, Adicionar/Subtrair quantidade dos produtos
-- DENNYS TESTI OLGADO
-- MARCOS VINICIUS DE SOUZA
+DENNYS TESTI OLGADO
+GIOVANNA PEREIRA DE CASTRO
+LEONARDO NESTOR COSTA
+LUCAS DE IULIIS
+MARIANA SILVA DO CARMO
+PAMELA CHRISTY MESQUITA MUNIZ
+SOLANGE DA SILVA GAMBOA
+THALLES DIEGO VERNETI TORMA
 
 
 # Iniciando o projeto
