@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
     elevation: 14,
     width: "auto",
-    height: "auto",
+    height: 250,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -138,10 +138,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   title: {
-    fontSize: 25,
+    fontSize: 20,
     fontWeight: "bold",
     color: "#488CFF",
     alignSelf: "center",
+    paddingBottom: 10
   },
   subtitle: {
     fontSize: 25,

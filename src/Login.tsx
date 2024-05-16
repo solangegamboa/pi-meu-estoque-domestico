@@ -1,28 +1,20 @@
 import { collection, getDocs, query } from "firebase/firestore";
 import { useState } from "react";
-import {
-  View,
-  Button,
-  Text,
-  StyleSheet,
-  TextInput,
-  LogBox,
-} from "react-native";
+import { View, Button, Text, StyleSheet, TextInput } from "react-native";
 import { Navigation } from "react-native-navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { styles } from "./App";
 import { ProductType, setProductsOnline } from "./features/productSlice";
 import {
-  getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { auth, login, selectClient } from "./features/clientsSlice";
 import { db } from "./config";
+import { AppButton } from "./componentes/AppButton";
 
 export const LoginScreen = (props: any) => {
   const dispatch = useDispatch();
-  const selector = useSelector(selectClient);
 
   const [form, setForm] = useState({
     email: "",
@@ -119,7 +111,7 @@ export const LoginScreen = (props: any) => {
             onChangeText={(text) => setForm({ ...form, password: text })}
           />
           {errorMessage && <Text>{errorMessage}</Text>}
-          <Button
+          <AppButton
             title="Cadastrar"
             color="#710ce3"
             onPress={() => cadastrar()}
@@ -146,7 +138,7 @@ export const LoginScreen = (props: any) => {
             onChangeText={(text) => setForm({ ...form, password: text })}
           />
           {errorMessage && <Text>{errorMessage}</Text>}
-          <Button title="Login" color="#710ce3" onPress={() => logar()} />
+          <AppButton title="Login" color="#710ce3" onPress={() => logar()} />
           <Button
             title="Ir para Cadastro"
             color="#710ce3"
@@ -230,38 +222,11 @@ const componentStyles = StyleSheet.create({
     backgroundColor: "#fff",
     margin: 8,
   },
-  image: {
-    width: 150,
-    height: 150,
-    borderRadius: 8,
-    borderColor: "#8A7395",
-    borderWidth: 1,
-    borderStyle: "dashed",
-  },
   container: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
     padding: 15,
     marginBottom: 15,
-  },
-  button: {
-    width: 150,
-    height: 150,
-  },
-  cameraIconContainer: {
-    width: 150,
-    height: 150,
-    backgroundColor: "#fff",
-    borderRadius: 8,
-    borderColor: "#8A7395",
-    borderWidth: 1,
-    borderStyle: "dashed",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  cameraIcon: {
-    width: 25,
-    height: 25,
   },
 });

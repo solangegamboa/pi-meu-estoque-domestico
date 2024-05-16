@@ -2,8 +2,6 @@ import { configureStore } from "@reduxjs/toolkit";
 import productSliceReducer from "./features/productSlice";
 import clientsSliceRecuder from "./features/clientsSlice";
 import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
-import clientsSlice from "./features/clientsSlice";
-import { initializeApp } from "firebase/app";
 
 export const store = configureStore({
   reducer: {

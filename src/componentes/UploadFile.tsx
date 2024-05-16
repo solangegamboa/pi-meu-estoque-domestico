@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Button, Text, Image, StyleSheet } from "react-native";
+import { View, Button, Text, StyleSheet } from "react-native";
 
 import {
   getDownloadURL,
@@ -28,7 +28,6 @@ export const UploadFile = () => {
 
   const [message, setMessage] = useState<string>("");
   const [progress, setProgress] = useState<number>(0);
-  const [url, setUrl] = useState<string>();
 
   const pickFromFile = async () => {
     try {
@@ -68,7 +67,6 @@ export const UploadFile = () => {
             // Handle successful uploads on complete
             // For instance, get the download URL: https://firebasestorage.googleapis.com/...
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-              setUrl(downloadURL);
               dispatch(setFoto(downloadURL));
             });
           }
@@ -88,7 +86,7 @@ export const UploadFile = () => {
       )}
       {progress <= 0 && (
         <Button
-          title="Escolha uma imagem da galeria"
+          title="Escolha uma imagem"
           onPress={() => pickFromFile()}
         />
       )}

@@ -7,7 +7,6 @@ import {
   Button,
   ScrollView,
   View,
-  TouchableWithoutFeedback,
   Alert,
 } from "react-native";
 import React, { useEffect, useState } from "react";
@@ -17,17 +16,17 @@ import {
   addProduct,
   selectFoto,
   selectNextId,
+  setFoto,
 } from "./features/productSlice";
 import MaskInput, { Masks } from "react-native-mask-input";
 
 // @ts-ignore
-import iconCamera from "../Assets/img/iconCamera.png";
 import { Navigation } from "react-native-navigation";
 import { selectClient } from "./features/clientsSlice";
 import { UploadFile } from "./componentes/UploadFile";
+import { AppButton } from "./componentes/AppButton";
 
 export const CadastroScreen = (props: any) => {
-  const [galleryPhoto, setGalleryPhoto] = useState("");
   const nextId = useSelector(selectNextId);
   const selectorClient = useSelector(selectClient);
   const selectorFoto = useSelector(selectFoto);
@@ -52,6 +51,7 @@ export const CadastroScreen = (props: any) => {
   const addNewProduct = () => {
     if (form.nome !== undefined) {
       dispatch(addProduct(form));
+      dispatch(setFoto(""));
       Alert.alert(
         "Produto cadastrado com sucesso!",
         "Escolha a próxima ação",
@@ -91,36 +91,36 @@ export const CadastroScreen = (props: any) => {
         key="cadastro-screen"
       >
         <View style={componentStyles.root} key="cadastro-screen-view">
-          <TextInput>ID: {nextId}</TextInput>
-          <Text style={componentStyles.text}>Nome do produto:</Text>
+          {/* <TextInput>ID: {nextId}</TextInput> */}
+          <Text style={componentStyles.text}>Nome</Text>
           <TextInput
             style={componentStyles.input}
             value={form.nome}
             onChangeText={(text) => setForm({ ...form, nome: text })}
           />
 
-          <Text style={componentStyles.text}>Categoria:</Text>
+          <Text style={componentStyles.text}>Categoria</Text>
           <TextInput
             style={componentStyles.input}
             value={form.categoria}
             onChangeText={(text) => setForm({ ...form, categoria: text })}
           />
 
-          <Text style={componentStyles.text}>Marca:</Text>
+          <Text style={componentStyles.text}>Marca</Text>
           <TextInput
             style={componentStyles.input}
             value={form.marca}
             onChangeText={(text) => setForm({ ...form, marca: text })}
           />
 
-          <Text style={componentStyles.text}>Quantidade:</Text>
+          <Text style={componentStyles.text}>Quantidade</Text>
           <TextInput
             style={componentStyles.input}
             value={form.quantidade}
             onChangeText={(text) => setForm({ ...form, quantidade: text })}
           />
 
-          <Text style={componentStyles.text}>Data de compra:</Text>
+          <Text style={componentStyles.text}>Data de compra</Text>
           <MaskInput
             style={componentStyles.input}
             value={form.data_compra}
@@ -128,25 +128,24 @@ export const CadastroScreen = (props: any) => {
             onChangeText={(text) => setForm({ ...form, data_compra: text })}
           />
 
-          <Text style={componentStyles.text}>Validade:</Text>
+          <Text style={componentStyles.text}>Validade</Text>
           <MaskInput
             style={componentStyles.input}
             value={form.data_validade}
             mask={Masks.DATE_DDMMYYYY}
             onChangeText={(text) => setForm({ ...form, data_validade: text })}
           />
-
-          <UploadFile />
-
-          {form.foto && (
-            <View>
+          <View style={componentStyles.image}>
+            {form.foto && (
               <Image
                 source={{ uri: form.foto }}
-                style={{ width: 100, height: 100 }}
+                style={{ width: 150, height: 150 }}
               />
-            </View>
-          )}
-          <Button
+            )}
+          </View>
+          <UploadFile />
+
+          <AppButton
             color="#6D3E84"
             title="Cadastrar Item"
             onPress={() => addNewProduct()}
@@ -171,7 +170,8 @@ CadastroScreen.options = {
 const componentStyles = StyleSheet.create({
   root: {
     flex: 1,
-    margin: 20,
+    marginTop: 10,
+    alignItems: 'center'
   },
   backgroundImage: {
     resizeMode: "cover",
@@ -184,6 +184,7 @@ const componentStyles = StyleSheet.create({
   },
   input: {
     height: 30,
+    width: 350,
     borderWidth: 1,
     borderColor: "#8A7395",
     borderRadius: 14,
@@ -193,35 +194,14 @@ const componentStyles = StyleSheet.create({
   image: {
     width: 150,
     height: 150,
+    marginTop: 10,
     borderRadius: 8,
     borderColor: "#8A7395",
     borderWidth: 1,
     borderStyle: "dashed",
-  },
-  container: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    padding: 15,
-    marginBottom: 15,
   },
   button: {
     width: 150,
     height: 150,
-  },
-  cameraIconContainer: {
-    width: 150,
-    height: 150,
-    backgroundColor: "#fff",
-    borderRadius: 8,
-    borderColor: "#8A7395",
-    borderWidth: 1,
-    borderStyle: "dashed",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  cameraIcon: {
-    width: 25,
-    height: 25,
   },
 });

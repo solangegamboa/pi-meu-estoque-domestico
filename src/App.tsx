@@ -9,7 +9,6 @@ import { store } from "./store";
 import { LoginScreen } from "./Login";
 import Storage from "react-native-storage";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { initializeApp } from "firebase/app";
 
 Navigation.registerComponent(
   "Login",
