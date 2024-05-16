@@ -17,7 +17,8 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { auth, db, login, selectClient } from "./features/clientsSlice";
+import { auth, login, selectClient } from "./features/clientsSlice";
+import { db } from "./config";
 
 export const LoginScreen = (props: any) => {
   const dispatch = useDispatch();

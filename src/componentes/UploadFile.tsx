@@ -3,11 +3,12 @@ import { View, Button } from "react-native";
 
 import { utils } from "@react-native-firebase/app";
 import storage from "@react-native-firebase/storage";
-import { initializeApp } from "firebase/app";
+import { getStorage } from "firebase/storage";
+import { getApp} from "firebase/app";
 
 export const UploadFile = () => {
-  // create bucket storage reference to not yet existing image
-  const reference = storage().ref("black-t-shirt-sm.png");
+  const firebaseApp = getApp();
+  const storage = getStorage(firebaseApp, "gs://my-custom-bucket");
 
   return (
     <View>
