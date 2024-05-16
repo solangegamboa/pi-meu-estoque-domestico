@@ -22,12 +22,18 @@ export const ProdutoDetalheScreen = (props: any) => {
   return (
     <View style={componentStyles.root} key="produto-detalhe-screen">
       <View style={componentStyles.containerPhoto}>
-        <Image
+        {props.product.foto ? <Image
           source={{
-            uri: "https://firebasestorage.googleapis.com/v0/b/meuestoquedomestico.appspot.com/o/can.png?alt=media&token=07e95512-54e1-4209-9406-40cd21053b9a",
+            uri: props.product.foto,
           }}
           style={{ width: 150, height: 150 }}
-        />
+        /> : <Image
+        source={{
+          uri: "https://firebasestorage.googleapis.com/v0/b/meuestoquedomestico.appspot.com/o/can.png?alt=media&token=07e95512-54e1-4209-9406-40cd21053b9a",
+        }}
+        style={{ width: 150, height: 150 }}
+      />}
+        
 
         <View>
           <Text style={componentStyles.text}>Quantidade:</Text>
