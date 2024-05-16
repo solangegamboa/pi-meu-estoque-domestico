@@ -12,7 +12,12 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ProductType, addProduct, selectNextId } from "./features/productSlice";
+import {
+  ProductType,
+  addProduct,
+  selectFoto,
+  selectNextId,
+} from "./features/productSlice";
 import MaskInput, { Masks } from "react-native-mask-input";
 
 // @ts-ignore
@@ -23,9 +28,12 @@ import { UploadFile } from "./componentes/UploadFile";
 
 export const CadastroScreen = (props: any) => {
   const [galleryPhoto, setGalleryPhoto] = useState("");
+  const nextId = useSelector(selectNextId);
+  const selectorClient = useSelector(selectClient);
+  const selectorFoto = useSelector(selectFoto);
 
-  const [form, setForm] = useState<ProductType>({
-    id: 0,
+  const emptyForm = {
+    id: nextId,
     nome: "",
     categoria: "",
     marca: "",
@@ -34,17 +42,15 @@ export const CadastroScreen = (props: any) => {
     data_validade: "",
     foto: "",
     favorito: false,
-    uid: "0123",
-  });
+    uid: selectorClient.uid,
+  };
 
-  const nextId = useSelector(selectNextId);
-  const selectorClient = useSelector(selectClient);
+  const [form, setForm] = useState<ProductType>(emptyForm);
 
   const dispatch = useDispatch();
 
   const addNewProduct = () => {
     if (form.nome !== undefined) {
-      form.uid = selectorClient.uid;
       dispatch(addProduct(form));
       Alert.alert(
         "Produto cadastrado com sucesso!",
@@ -70,8 +76,12 @@ export const CadastroScreen = (props: any) => {
   };
 
   useEffect(() => {
-    setForm({ ...form, id: nextId });
+    setForm(emptyForm);
   }, [nextId]);
+
+  useEffect(() => {
+    setForm({ ...form, foto: selectorFoto });
+  }, [selectorFoto]);
 
   return (
     <ScrollView>
@@ -126,7 +136,16 @@ export const CadastroScreen = (props: any) => {
             onChangeText={(text) => setForm({ ...form, data_validade: text })}
           />
 
-          {/* <UploadFile /> */}
+          <UploadFile />
+
+          {form.foto && (
+            <View>
+              <Image
+                source={{ uri: form.foto }}
+                style={{ width: 100, height: 100 }}
+              />
+            </View>
+          )}
           <Button
             color="#6D3E84"
             title="Cadastrar Item"

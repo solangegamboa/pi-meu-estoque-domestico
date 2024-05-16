@@ -6,6 +6,12 @@
 	<string></string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>O aplicativo precisa de permissão para acessar sua galeria de imagens</string>	
+	<key>NSAppleMusicUsageDescription</key>
+	<string>O aplicativo precisa de permissão para acessar sua galeria de imagens</string>
+	<key>NSCameraUsageDescription</key>
+	<string>O aplicativo precisa de permissão para acessar sua camera</string>
 	<key>CFBundleDisplayName</key>
 	<string>MeuEstoqueDomestico</string>
 	<key>CFBundleExecutable</key>

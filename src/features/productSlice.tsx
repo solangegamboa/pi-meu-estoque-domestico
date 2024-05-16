@@ -6,10 +6,12 @@ import { db } from "../config";
 
 type ProductState = {
   products: ProductType[];
+  foto: string;
 };
 
 const initialState: ProductState = {
   products: [],
+  foto: "",
 };
 
 export interface ProductType {
@@ -126,6 +128,9 @@ const productSlice = createSlice({
         return cond;
       });
     },
+    setFoto: (state, action: PayloadAction<string>) => {
+      state.foto = action.payload;
+    },
   },
 });
 
@@ -136,11 +141,13 @@ export const {
   toogleFavorito,
   removeProduct,
   setProductsOnline,
+  setFoto
 } = productSlice.actions;
 
 export default productSlice.reducer;
 
 export const selectProductList = (state: RootState) => state.productSlice;
+export const selectFoto = (state: RootState) => state.productSlice.foto;
 
 export const selectNextId = (state: RootState) => {
   return state.productSlice.products.length >= 1

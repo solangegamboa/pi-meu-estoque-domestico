@@ -1,13 +1,4 @@
-import {
-  Button,
-  Image,
-  Pressable,
-  StyleSheet,
-  Switch,
-  Text,
-  Touchable,
-  View,
-} from "react-native";
+import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { ProductType, removeProduct } from "../features/productSlice";
 import { Navigation } from "react-native-navigation";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,14 +6,11 @@ import { selectClient } from "../features/clientsSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faStar } from "@fortawesome/free-regular-svg-icons/faStar";
 import {
-  faBoxesStacked,
   faMinus,
   faPlus,
   faStar as faStarSolid,
   faTrashCan,
-  faClockFour,
 } from "@fortawesome/free-solid-svg-icons";
-import { TSpan } from "react-native-svg";
 
 type ProductCardProps = {
   product: ProductType;
@@ -79,21 +67,34 @@ export const ProdutoCard = ({
             )}
             <Text style={styles.title}>{product.nome}</Text>
             <Text style={styles.subtitle}>
-              <Image
-                source={require("../../Assets/img/can.png")}
-                style={{ width: 100, height: 100 }}
-              />
+              {product.foto ? (
+                <Image
+                  source={{ uri: product.foto }}
+                  style={{ width: 100, height: 100 }}
+                />
+              ) : (
+                <Image
+                  source={require("../../Assets/img/can.png")}
+                  style={{ width: 100, height: 100 }}
+                />
+              )}
             </Text>
           </View>
 
           {/* Content */}
           <View style={styles.content}>
             <Text style={styles.text}>
-              <Pressable onPress={() => decrementQuantidade(product.id)} style={styles.qty}>
+              <Pressable
+                onPress={() => decrementQuantidade(product.id)}
+                style={styles.qty}
+              >
                 <FontAwesomeIcon icon={faMinus} color="purple" />
               </Pressable>
               {product.quantidade}
-              <Pressable onPress={() => incrementQuantidade(product.id)} style={styles.qty}>
+              <Pressable
+                onPress={() => incrementQuantidade(product.id)}
+                style={styles.qty}
+              >
                 <FontAwesomeIcon icon={faPlus} color="purple" />
               </Pressable>
             </Text>
@@ -165,6 +166,6 @@ const styles = StyleSheet.create({
     paddingLeft: 5,
   },
   qty: {
-    paddingHorizontal: 10
+    paddingHorizontal: 10,
   },
 });
