@@ -1,3 +1,4 @@
+#import <Firebase.h>
 #import "AppDelegate.h"
 #import <ReactNativeNavigation/ReactNativeNavigation.h>
 

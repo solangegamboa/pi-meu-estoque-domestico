@@ -70,7 +70,7 @@ const EstoqueScreen = (props: any) => {
               data={products}
               key={2}
               renderItem={renderProduto}
-              numColumns={1}
+              numColumns={2}
               keyExtractor={(item) => `est-${item.id}`}
               extraData={products.length}
               initialNumToRender={4}

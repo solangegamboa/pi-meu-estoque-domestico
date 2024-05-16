@@ -68,7 +68,7 @@ export const FavoritosScreen = (props: any) => {
               data={products}
               key={2}
               renderItem={renderProduto}
-              numColumns={1}
+              numColumns={2}
               keyExtractor={(item) => `fav-${item.id}`}
               extraData={products.length}
               initialNumToRender={2}

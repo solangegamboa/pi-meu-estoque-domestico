@@ -19,6 +19,7 @@ import MaskInput, { Masks } from "react-native-mask-input";
 import iconCamera from "../Assets/img/iconCamera.png";
 import { Navigation } from "react-native-navigation";
 import { selectClient } from "./features/clientsSlice";
+import { UploadFile } from "./componentes/UploadFile";
 
 export const CadastroScreen = (props: any) => {
   const [galleryPhoto, setGalleryPhoto] = useState("");
@@ -125,26 +126,7 @@ export const CadastroScreen = (props: any) => {
             onChangeText={(text) => setForm({ ...form, data_validade: text })}
           />
 
-          {/*<View style={componentStyles.container}>*/}
-          {/*  <Text style={componentStyles.text}>Adicionar foto:</Text>*/}
-          {/*  <TouchableWithoutFeedback*/}
-          {/*    style={componentStyles.button}*/}
-          {/*    onPress={openGallery}>*/}
-          {/*    {galleryPhoto ? (*/}
-          {/*      <Image*/}
-          {/*        style={componentStyles.image}*/}
-          {/*        source={{ uri: galleryPhoto }}*/}
-          {/*      />*/}
-          {/*    ) : (*/}
-          {/*      <View style={componentStyles.cameraIconContainer}>*/}
-          {/*        <Image*/}
-          {/*          style={componentStyles.cameraIcon}*/}
-          {/*          source={iconCamera}*/}
-          {/*        />*/}
-          {/*      </View>*/}
-          {/*    )}*/}
-          {/*  </TouchableWithoutFeedback>*/}
-          {/*</View>*/}
+          {/* <UploadFile /> */}
           <Button
             color="#6D3E84"
             title="Cadastrar Item"

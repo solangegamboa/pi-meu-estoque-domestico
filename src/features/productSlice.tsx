@@ -60,17 +60,7 @@ const productSlice = createSlice({
           collection(db, "users"),
           `${action.payload.uid}/produto/${action.payload.id}`
         ),
-        {
-          nome: action.payload.nome,
-          categoria: action.payload.categoria,
-          marca: action.payload.marca,
-          quantidade: action.payload.quantidade,
-          data_compra: action.payload.data_compra,
-          data_validade: action.payload.data_validade,
-          foto: "",
-          favorito: false,
-          uid: action.payload.uid,
-        }
+        action.payload
       );
     },
     incrementQty: (state, action: PayloadAction<SingleQty>) => {
@@ -103,7 +93,7 @@ const productSlice = createSlice({
           prod.id === action.payload.id &&
           (parseInt(prod.quantidade) > 0).toString()
         ) {
-          console.log(`${action.payload.uid}/produto/${action.payload.id}`)
+          console.log(`${action.payload.uid}/produto/${action.payload.id}`);
           updateDoc(
             doc(
               collection(db, "users"),

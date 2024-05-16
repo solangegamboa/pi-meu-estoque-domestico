@@ -17,7 +17,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { db, login, selectClient } from "./features/clientsSlice";
+import { auth, db, login, selectClient } from "./features/clientsSlice";
 
 export const LoginScreen = (props: any) => {
   const dispatch = useDispatch();
@@ -35,7 +35,7 @@ export const LoginScreen = (props: any) => {
     const lerProdutos = async () => {
       const produtosFormatados: ProductType[] = [];
       const querySnapshot = await getDocs(
-        query(collection(db, "users", `${uid}/produto/`))
+        query(collection(db, "users", `${uid}/produto`))
       );
       querySnapshot.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
@@ -75,7 +75,6 @@ export const LoginScreen = (props: any) => {
   };
 
   const logar = () => {
-    const auth = getAuth();
     signInWithEmailAndPassword(auth, form.email, form.password)
       .then((userCredential) => {
         const user = userCredential.user;
@@ -89,7 +88,6 @@ export const LoginScreen = (props: any) => {
   };
 
   const cadastrar = () => {
-    const auth = getAuth();
     createUserWithEmailAndPassword(auth, form.email, form.password)
       .then((userCredential) => {
         const user = userCredential.user;
