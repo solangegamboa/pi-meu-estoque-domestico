@@ -2,12 +2,19 @@
 
 ## Equipe de desenvolvimento
 DENNYS TESTI OLGADO
+
 GIOVANNA PEREIRA DE CASTRO
+
 LEONARDO NESTOR COSTA
+
 LUCAS DE IULIIS
+
 MARIANA SILVA DO CARMO
+
 PAMELA CHRISTY MESQUITA MUNIZ
+
 SOLANGE DA SILVA GAMBOA
+
 THALLES DIEGO VERNETI TORMA
 
 
@@ -57,9 +64,8 @@ yarn start
 Com tudo correto, o projeto será aberto no seu dispositivo.
 
 
-### Figma inicial do projeto
-![Figma](midias_pi/figma.jpg)
+### Figma do projeto
+![Figma](midias_pi/figma_finalizado.jpg)
 ### Video do aplicativo em funcionamento
-[Download Video](midias_pi/PI_demo.mp4)
-![Demo Gif](midias_pi/demo.gif)
+[Download Video](midias_pi/pi_video_finalizado.mp4)
 
